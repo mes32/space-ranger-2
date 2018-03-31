@@ -12,6 +12,7 @@ import javax.swing.*;
 public class GameBoard extends JPanel {
 
     private static final String SPRITE_PATH = "/images/PlayersShip.png";
+
     private Image playerSprite;
 
     public GameBoard() {

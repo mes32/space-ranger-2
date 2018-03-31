@@ -9,17 +9,22 @@ package spaceranger;
 import java.io.*;
 import javax.swing.*;
 
-public class GameGUI extends JFrame {
+public class GameGUI {
+
     private static final String TITLE = "Space Ranger II";
 
+    private JFrame frame;
     private GameBoard board;
 
     GameGUI() {
+        frame = new JFrame();
         board = new GameBoard();
-        add(board);
-        setSize(250, 200);
-        setTitle(TITLE);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+
+        frame.add(board);
+        frame.setSize(250, 200);
+        frame.setTitle(TITLE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
 }
