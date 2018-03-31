@@ -21,7 +21,7 @@ public class GameGUI {
         board = new GameBoard();
 
         frame.add(board);
-        frame.setSize(250, 200);
+        frame.setSize(1000, 700);
         frame.setTitle(TITLE);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);

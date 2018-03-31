@@ -7,33 +7,50 @@
 package spaceranger;
 
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 
-public class GameBoard extends JPanel {
+public class GameBoard extends JPanel implements ActionListener {
 
-    private static final String SPRITE_PATH = "/images/PlayersShip.png";
+    private static final int DELAY = 10;
 
-    private Image playerSprite;
+    private Timer timer;
+    private PlayerShip playerShip;
 
-    public GameBoard() {
+    GameBoard() {
         init();
     }
     
     private void init() {
-        loadImage();
-        int width = playerSprite.getWidth(this);
-        int height =  playerSprite.getHeight(this);
-        setPreferredSize(new Dimension(width, height));        
-    }
-    
-    private void loadImage() {
-        ImageIcon ii = new ImageIcon(getClass().getResource(SPRITE_PATH));
-        playerSprite = ii.getImage();
+        playerShip = new PlayerShip();
+        addKeyListener(new GameplayKeyAdapter(playerShip));
+        setFocusable(true);
+        setBackground(Color.BLACK);
+        setDoubleBuffered(true);
+        timer = new Timer(DELAY, this);
+        timer.start();
     }
 
     @Override
     public void paintComponent(Graphics g) {
-        g.drawImage(playerSprite, 0, 0, null);
+        super.paintComponent(g);
+        drawSprites(g);
+        Toolkit toolkit = java.awt.Toolkit.getDefaultToolkit();
+        toolkit.sync();
+    }
+
+    private void drawSprites(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.drawImage(playerShip.getImage(), playerShip.getX(), playerShip.getY(), this);
     }
     
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        step();
+    }
+    
+    private void step() {
+        // playerShip.move();
+        // repaint(playerShip.getX()-1, playerShip.getY()-1, playerShip.getWidth()+2, playerShip.getHeight()+2);     
+    }  
 }
