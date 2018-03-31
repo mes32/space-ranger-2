@@ -11,7 +11,7 @@ import javax.swing.*;
 
 public class GameBoard extends JPanel {
 
-    private static final String SPRITE_PATH = "src/main/resources/images/PlayersShip.png";
+    private static final String SPRITE_PATH = "/images/PlayersShip.png";
     private Image playerSprite;
 
     public GameBoard() {
@@ -26,8 +26,8 @@ public class GameBoard extends JPanel {
     }
     
     private void loadImage() {
-        ImageIcon icon = new ImageIcon(SPRITE_PATH);
-        playerSprite = icon.getImage();
+        ImageIcon ii = new ImageIcon(getClass().getResource(SPRITE_PATH));
+        playerSprite = ii.getImage();
     }
 
     @Override
