@@ -13,16 +13,19 @@ import javax.swing.*;
 public class GameBoard extends JPanel implements ActionListener {
 
     private static final int DELAY = 10;
+    private static final int MOVE_PIXELS = GameplayKeyAdapter.getMovePixels();
 
+    private GameGUI gui;
     private Timer timer;
     private PlayerShip playerShip;
 
-    GameBoard() {
+    GameBoard(GameGUI gui) {
+        this.gui = gui;
         init();
     }
     
     private void init() {
-        playerShip = new PlayerShip();
+        playerShip = new PlayerShip(gui);
         addKeyListener(new GameplayKeyAdapter(playerShip));
         setFocusable(true);
         setBackground(Color.BLACK);
@@ -50,7 +53,7 @@ public class GameBoard extends JPanel implements ActionListener {
     }
     
     private void step() {
-        // playerShip.move();
-        // repaint(playerShip.getX()-1, playerShip.getY()-1, playerShip.getWidth()+2, playerShip.getHeight()+2);     
+        playerShip.move();
+        repaint(playerShip.getX() - MOVE_PIXELS, playerShip.getY() - MOVE_PIXELS, playerShip.getWidth() + 2*MOVE_PIXELS, playerShip.getHeight() + 2*MOVE_PIXELS);     
     }  
 }

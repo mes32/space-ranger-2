@@ -11,6 +11,8 @@ import javax.swing.*;
 
 public class GameGUI {
 
+    private static final int WIDTH = 1000;
+    private static final int HEIGHT = 700;
     private static final String TITLE = "Space Ranger II";
 
     private JFrame frame;
@@ -18,13 +20,22 @@ public class GameGUI {
 
     GameGUI() {
         frame = new JFrame();
-        board = new GameBoard();
+        board = new GameBoard(this);
 
         frame.add(board);
-        frame.setSize(1000, 700);
+        frame.setSize(WIDTH, HEIGHT);
+        frame.setResizable(false);
         frame.setTitle(TITLE);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+    }
+
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    public int getHeight() {
+        return HEIGHT;
     }
 }

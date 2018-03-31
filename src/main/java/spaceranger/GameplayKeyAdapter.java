@@ -13,6 +13,8 @@ import javax.swing.event.*;
 
 public class GameplayKeyAdapter extends KeyAdapter {
 
+    private static final int MOVE_PIXELS = 3;
+
     private PlayerShip player;
 
     GameplayKeyAdapter(PlayerShip player) {
@@ -20,13 +22,31 @@ public class GameplayKeyAdapter extends KeyAdapter {
         this.player = player;
     }
 
+    public static int getMovePixels() {
+        return MOVE_PIXELS;
+    }
+
     @Override
     public void keyReleased(KeyEvent e) {
-        System.out.println("GameplayKeyAdapter keyReleased()");
+        int key = e.getKeyCode();
+        if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_RIGHT) {
+            player.setMoveX(0);
+        } else if (key == KeyEvent.VK_UP || key == KeyEvent.VK_DOWN) {
+            player.setMoveY(0);
+        }
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        System.out.println("GameplayKeyAdapter keyPressed()");
+        int key = e.getKeyCode();
+        if (key == KeyEvent.VK_LEFT) {
+            player.setMoveX(-1 * MOVE_PIXELS);
+        } else if (key == KeyEvent.VK_RIGHT) {
+            player.setMoveX(MOVE_PIXELS);
+        } else if (key == KeyEvent.VK_UP) {
+            player.setMoveY(-1 * MOVE_PIXELS);
+        } else if (key == KeyEvent.VK_DOWN) {
+            player.setMoveY(MOVE_PIXELS);
+        }
     }
 }
