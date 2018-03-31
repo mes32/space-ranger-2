@@ -6,10 +6,13 @@
 
 package spaceranger;
 
-import java.io.*;
+import java.awt.*;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Space Ranger II");
+        EventQueue.invokeLater(() -> {
+            GameGUI gui = new GameGUI();
+            gui.setVisible(true);
+        });
     }
 }
