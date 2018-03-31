@@ -1,7 +1,7 @@
 /*
     GameGUI.java
 
-    Launcher class for the game "Space Ranger II"
+    The main program window
  */
 
 package spaceranger;

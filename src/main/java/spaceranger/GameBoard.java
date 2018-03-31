@@ -1,7 +1,7 @@
 /*
     GameBoard.java
 
-    Launcher class for the game "Space Ranger II"
+    The main program panel associated with GameGUI
  */
 
 package spaceranger;
