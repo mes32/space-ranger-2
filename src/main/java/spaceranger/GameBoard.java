@@ -15,7 +15,6 @@ public class GameBoard extends JPanel implements ActionListener {
 
     private static final int DELAY = 10;
     private static final int MOVE_PIXELS = GameplayKeyAdapter.getMovePixels();
-    private static final int MAX_SCORE = 10;
 
     private GameGUI gui;
     private javax.swing.Timer timer;
@@ -55,9 +54,6 @@ public class GameBoard extends JPanel implements ActionListener {
 
     public void incrementScore() {
         score++;
-        if (score >= MAX_SCORE) {
-            ingame = false;
-        }
     }
 
     public void addSprite(Sprite sprite) {
@@ -111,6 +107,9 @@ public class GameBoard extends JPanel implements ActionListener {
         enemyGenerator.update();
 
         playerShip.update();
+        if (playerShip.isDestroyed()) {
+            ingame = false;
+        }
         repaint(playerShip.getX() - MOVE_PIXELS, playerShip.getY() - MOVE_PIXELS, playerShip.getWidth() + 2*MOVE_PIXELS, playerShip.getHeight() + 2*MOVE_PIXELS);
 
         for (int i = 0; i < spriteList.size(); i++) {

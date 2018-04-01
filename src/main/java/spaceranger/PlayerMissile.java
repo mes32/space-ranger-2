@@ -22,7 +22,7 @@ public class PlayerMissile extends Sprite {
         super.update();
 
         for (Sprite sprite : board.getSprites()) {
-            if (this.collision(sprite) && sprite.isEnemy()) {
+            if (sprite.isEnemy() && this.collision(sprite)) {
                 sprite.hit();
                 this.hit();
                 board.incrementScore();

@@ -13,8 +13,28 @@ public class PlayerShip extends Sprite {
 
     private static final String IMAGE_PATH = "/images/PlayersShip.png";
 
+    private boolean isDestroyed;
+
     PlayerShip(GameBoard board) {
         super(board, IMAGE_PATH);
+        isDestroyed = false;
+    }
+
+    public void update() {
+        super.update();
+
+        for (Sprite sprite : board.getSprites()) {
+            if (sprite.isEnemy() && this.collision(sprite)) {
+                sprite.hit();
+                board.incrementScore();
+                isDestroyed = true;
+                break;
+            }
+        }
+    }
+
+    public boolean isDestroyed() {
+        return isDestroyed;
     }
 
     public void fireMissile() {
