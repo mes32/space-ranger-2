@@ -90,6 +90,7 @@ public class GameBoard extends JPanel implements ActionListener {
                 repaint(sprite.getX(), sprite.getY() - 5, sprite.getWidth(), sprite.getHeight() + 10);
             } else {
                 spriteList.remove(i);
+                repaint(sprite.getX(), sprite.getY() - 5, sprite.getWidth(), sprite.getHeight() + 10);
             }
         }
     }  
