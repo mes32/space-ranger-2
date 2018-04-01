@@ -25,6 +25,7 @@ public class PlayerMissile extends Sprite {
             if (this.collision(sprite) && sprite.isEnemy()) {
                 sprite.hit();
                 this.hit();
+                board.incrementScore();
                 break;
             }
         }

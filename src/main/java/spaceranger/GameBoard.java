@@ -15,11 +15,14 @@ public class GameBoard extends JPanel implements ActionListener {
 
     private static final int DELAY = 10;
     private static final int MOVE_PIXELS = GameplayKeyAdapter.getMovePixels();
+    private static final int MAX_SCORE = 10;
 
     private GameGUI gui;
     private javax.swing.Timer timer;
     private PlayerShip playerShip;
     private EnemyShipGenerator enemyGenerator;
+    private int score;
+    private boolean ingame;
 
     private java.util.List<Sprite> spriteList = Collections.synchronizedList(new ArrayList());
 
@@ -31,6 +34,8 @@ public class GameBoard extends JPanel implements ActionListener {
     private void init() {
         playerShip = new PlayerShip(this);
         enemyGenerator = new EnemyShipGenerator(this);
+        score = 0;
+        ingame = true;
 
         addKeyListener(new GameplayKeyAdapter(playerShip));
         setFocusable(true);
@@ -48,6 +53,13 @@ public class GameBoard extends JPanel implements ActionListener {
         return gui.getHeight();
     }
 
+    public void incrementScore() {
+        score++;
+        if (score >= MAX_SCORE) {
+            ingame = false;
+        }
+    }
+
     public void addSprite(Sprite sprite) {
         spriteList.add(sprite);
     }
@@ -59,7 +71,11 @@ public class GameBoard extends JPanel implements ActionListener {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        drawSprites(g);
+        if (ingame) {
+            drawSprites(g);
+        } else {
+            drawGameover(g);
+        }
         Toolkit toolkit = java.awt.Toolkit.getDefaultToolkit();
         toolkit.sync();
     }
@@ -70,6 +86,20 @@ public class GameBoard extends JPanel implements ActionListener {
             g2d.drawImage(sprite.getImage(), sprite.getX(), sprite.getY(), this);
         }
         g2d.drawImage(playerShip.getImage(), playerShip.getX(), playerShip.getY(), this);
+    }
+
+    private void drawGameover(Graphics g) {
+        String message = "Game Over";
+        int fontSize = 22;
+        Font small = new Font("Helvetica", Font.BOLD, fontSize);
+        FontMetrics fontMetrics = getFontMetrics(small);
+
+        g.setColor(Color.white);
+        g.setFont(small);
+        g.drawString(message, (gui.getWidth() - fontMetrics.stringWidth(message)) / 2, gui.getHeight() / 2);
+
+        String message2 = "Score: " + score;
+        g.drawString(message2, (gui.getWidth() - fontMetrics.stringWidth(message2)) / 2, (gui.getHeight() / 2) + 2 * fontSize);
     }
 
     @Override
