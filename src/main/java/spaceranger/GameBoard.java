@@ -19,6 +19,7 @@ public class GameBoard extends JPanel implements ActionListener {
     private GameGUI gui;
     private javax.swing.Timer timer;
     private PlayerShip playerShip;
+    private EnemyShipGenerator enemyGenerator;
 
     private java.util.List<Sprite> spriteList = Collections.synchronizedList(new ArrayList());
 
@@ -29,6 +30,8 @@ public class GameBoard extends JPanel implements ActionListener {
 
     private void init() {
         playerShip = new PlayerShip(this);
+        enemyGenerator = new EnemyShipGenerator(this);
+
         addKeyListener(new GameplayKeyAdapter(playerShip));
         setFocusable(true);
         setBackground(Color.BLACK);
@@ -71,6 +74,8 @@ public class GameBoard extends JPanel implements ActionListener {
     }
 
     private void updateAll() {
+        enemyGenerator.update();
+
         playerShip.update();
         repaint(playerShip.getX() - MOVE_PIXELS, playerShip.getY() - MOVE_PIXELS, playerShip.getWidth() + 2*MOVE_PIXELS, playerShip.getHeight() + 2*MOVE_PIXELS);
 
@@ -78,7 +83,7 @@ public class GameBoard extends JPanel implements ActionListener {
             Sprite sprite = spriteList.get(i);
             if (sprite.isActive()) {
                 sprite.update();
-                repaint(sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight() + 10);
+                repaint(sprite.getX(), sprite.getY() - 5, sprite.getWidth(), sprite.getHeight() + 10);
             } else {
                 spriteList.remove(i);
             }
