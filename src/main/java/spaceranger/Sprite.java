@@ -13,7 +13,7 @@ abstract public class Sprite {
 
     protected Image image;
 
-    private GameGUI gui;
+    private GameBoard board;
     private int width;
     private int height;
     private int x;
@@ -21,8 +21,8 @@ abstract public class Sprite {
     private int dx;
     private int dy;
 
-    Sprite(GameGUI gui, String path) {
-        this.gui = gui;
+    Sprite(GameBoard board, String path) {
+        this.board = board;
         image = loadImage(path);
         init();
     }
@@ -69,8 +69,8 @@ abstract public class Sprite {
         width = image.getWidth(null);
         height =  image.getHeight(null);
 
-        int guiWidth = gui.getWidth();
-        int guiHeight = gui.getHeight();
+        int guiWidth = board.getWidth();
+        int guiHeight = board.getHeight();
 
         x = (int)((guiWidth - width) / 2);
         y = (int)(guiHeight - 1.5 * height);
