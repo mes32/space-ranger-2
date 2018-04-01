@@ -53,7 +53,9 @@ public class GameBoard extends JPanel implements ActionListener {
     }
 
     public void incrementScore() {
-        score++;
+        if (ingame) {
+            score++;
+        }
     }
 
     public void addSprite(Sprite sprite) {
