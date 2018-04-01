@@ -18,8 +18,20 @@ public class PlayerMissile extends Sprite {
         dy = -5;
     }
 
+    public void update() {
+        super.update();
+
+        for (Sprite sprite : board.getSprites()) {
+            if (this.collision(sprite) && sprite.isEnemy()) {
+                sprite.hit();
+                this.hit();
+                break;
+            }
+        }
+    }
+
     public boolean isActive() {
-        if (y + height < 0) {
+        if (y + height < 0 || isHit) {
             return false;
         } else {
             return true;

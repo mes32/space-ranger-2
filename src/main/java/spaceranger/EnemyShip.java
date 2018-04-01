@@ -19,10 +19,15 @@ public class EnemyShip extends Sprite {
         super(board, IMAGE_PATH);
         boardHeight = board.getHeight();
         dy = 1;
+        isHit = false;
+    }
+
+    public boolean isEnemy() {
+        return true;
     }
 
     public boolean isActive() {
-        if (y > boardHeight) {
+        if (y > boardHeight || isHit) {
             return false;
         } else {
             return true;

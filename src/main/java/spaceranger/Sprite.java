@@ -20,6 +20,7 @@ abstract public class Sprite {
     protected int y;
     protected int dx;
     protected int dy;
+    protected boolean isHit;
 
     Sprite(GameBoard board, String path) {
         this.board = board;
@@ -68,6 +69,25 @@ abstract public class Sprite {
     public boolean isActive() {
         return true;
     }
+
+    public void hit() {
+        isHit = true;
+    }
+
+    public boolean isEnemy() {
+        return false;
+    }
+
+    public boolean collision(Sprite other) {
+        if (x < other.x + other.width
+            && x + width > other.x
+            && y < other.y + other.height
+            && height + y > other.y)
+        {
+            return true;
+        }
+        return false; 
+    }
     
     private void init() {
         width = image.getWidth(null);
@@ -80,6 +100,7 @@ abstract public class Sprite {
         y = (int)(guiHeight - 1.5 * height);
         dx = 0;
         dy = 0;
+        isHit = false;
     }
     
     protected Image loadImage(String path) {

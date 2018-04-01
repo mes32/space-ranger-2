@@ -52,6 +52,10 @@ public class GameBoard extends JPanel implements ActionListener {
         spriteList.add(sprite);
     }
 
+    public java.util.List<Sprite> getSprites() {
+        return spriteList;
+    }
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
