@@ -53,7 +53,7 @@ public class GameBoard extends JPanel implements ActionListener {
     }
     
     private void step() {
-        playerShip.move();
+        playerShip.update();
         repaint(playerShip.getX() - MOVE_PIXELS, playerShip.getY() - MOVE_PIXELS, playerShip.getWidth() + 2*MOVE_PIXELS, playerShip.getHeight() + 2*MOVE_PIXELS);     
     }  
 }
