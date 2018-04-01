@@ -20,8 +20,8 @@ public class PlayerShip extends Sprite {
     public void fireMissile() {
         PlayerMissile missileLeft = new PlayerMissile(board);
         PlayerMissile missileRight = new PlayerMissile(board);
-        missileLeft.setInitialPosition(x, y + 15);
-        missileRight.setInitialPosition(x + width - 5, y + 15);
+        missileLeft.setInitialPosition(x + 10, y + 15);
+        missileRight.setInitialPosition(x + width - 5 - 10, y + 15);
         board.addSprite(missileLeft);
         board.addSprite(missileRight);
     }
