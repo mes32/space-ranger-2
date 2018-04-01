@@ -13,13 +13,13 @@ abstract public class Sprite {
 
     protected Image image;
 
-    private GameBoard board;
-    private int width;
-    private int height;
-    private int x;
-    private int y;
-    private int dx;
-    private int dy;
+    protected GameBoard board;
+    protected int width;
+    protected int height;
+    protected int x;
+    protected int y;
+    protected int dx;
+    protected int dy;
 
     Sprite(GameBoard board, String path) {
         this.board = board;
@@ -63,6 +63,10 @@ abstract public class Sprite {
     public void update() {
         x += dx;
         y += dy;
+    }
+
+    public boolean isActive() {
+        return true;
     }
     
     private void init() {

@@ -20,13 +20,13 @@ public class GameBoard extends JPanel implements ActionListener {
     private javax.swing.Timer timer;
     private PlayerShip playerShip;
 
-    private ArrayList<Sprite> spriteList = new ArrayList<Sprite>();
+    private java.util.List<Sprite> spriteList = Collections.synchronizedList(new ArrayList());
 
     GameBoard(GameGUI gui) {
         this.gui = gui;
         init();
     }
-    
+
     private void init() {
         playerShip = new PlayerShip(this);
         addKeyListener(new GameplayKeyAdapter(playerShip));
@@ -59,23 +59,29 @@ public class GameBoard extends JPanel implements ActionListener {
 
     private void drawSprites(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
+        for (Sprite sprite : spriteList) {
+            g2d.drawImage(sprite.getImage(), sprite.getX(), sprite.getY(), this);
+        }
         g2d.drawImage(playerShip.getImage(), playerShip.getX(), playerShip.getY(), this);
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
         updateAll();
     }
-    
+
     private void updateAll() {
         playerShip.update();
-        for (Sprite sprite : spriteList) {
-            sprite.update();
-        }
-
         repaint(playerShip.getX() - MOVE_PIXELS, playerShip.getY() - MOVE_PIXELS, playerShip.getWidth() + 2*MOVE_PIXELS, playerShip.getHeight() + 2*MOVE_PIXELS);
-        for (Sprite sprite : spriteList) {
-            repaint(sprite.getX() - MOVE_PIXELS, sprite.getY() - MOVE_PIXELS, sprite.getWidth() + 2*MOVE_PIXELS, sprite.getHeight() + 2*MOVE_PIXELS);
+
+        for (int i = 0; i < spriteList.size(); i++) {
+            Sprite sprite = spriteList.get(i);
+            if (sprite.isActive()) {
+                sprite.update();
+                repaint(sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight() + 10);
+            } else {
+                spriteList.remove(i);
+            }
         }
     }  
 }

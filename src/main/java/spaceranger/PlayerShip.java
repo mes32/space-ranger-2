@@ -18,6 +18,11 @@ public class PlayerShip extends Sprite {
     }
 
     public void fireMissile() {
-        System.out.println("PlayerShip fireMissile()");
+        PlayerMissile missileLeft = new PlayerMissile(board);
+        PlayerMissile missileRight = new PlayerMissile(board);
+        missileLeft.setInitialPosition(x, y);
+        missileRight.setInitialPosition(x + width - 5, y);
+        board.addSprite(missileLeft);
+        board.addSprite(missileRight);
     }
 }
