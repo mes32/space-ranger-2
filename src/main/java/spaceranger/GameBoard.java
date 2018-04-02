@@ -7,17 +7,16 @@
 package spaceranger;
 
 import java.awt.*;
-import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
 
-public class GameBoard extends JPanel implements ActionListener {
+public class GameBoard extends JPanel implements Runnable {
 
     private static final int DELAY = 10;
     private static final int MOVE_PIXELS = GameplayKeyAdapter.getMovePixels();
 
+    private Thread animator;
     private GameGUI gui;
-    private javax.swing.Timer timer;
     private PlayerShip playerShip;
     private EnemyShipGenerator enemyGenerator;
     private int score;
@@ -27,10 +26,7 @@ public class GameBoard extends JPanel implements ActionListener {
 
     GameBoard(GameGUI gui) {
         this.gui = gui;
-        init();
-    }
 
-    private void init() {
         playerShip = new PlayerShip(this);
         enemyGenerator = new EnemyShipGenerator(this);
         score = 0;
@@ -40,8 +36,6 @@ public class GameBoard extends JPanel implements ActionListener {
         setFocusable(true);
         setBackground(Color.BLACK);
         setDoubleBuffered(true);
-        timer = new javax.swing.Timer(DELAY, this);
-        timer.start();
     }
 
     public int getWidth() {
@@ -67,6 +61,42 @@ public class GameBoard extends JPanel implements ActionListener {
     }
 
     @Override
+    public void addNotify() {
+        super.addNotify();
+
+        animator = new Thread(this);
+        animator.start();
+    }
+
+    @Override
+    public void run() {
+        long beforeTime = System.currentTimeMillis();
+        long diffTime;
+        long sleepTime;
+
+        while (true) {
+            updateAll();
+            repaint();
+
+            diffTime = System.currentTimeMillis() - beforeTime;
+            sleepTime = DELAY - diffTime;
+            if (sleepTime < 0) {
+                sleepTime = 2;
+            }
+
+            try {
+                Thread.sleep(sleepTime);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                String title = "InterruptedException";
+                String message = String.format("Thread interrupted: %s", e.getMessage());
+                JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE);
+            }
+            beforeTime = System.currentTimeMillis();
+        }
+    }
+
+    @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (ingame) {
@@ -80,7 +110,8 @@ public class GameBoard extends JPanel implements ActionListener {
 
     private void drawSprites(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-        for (Sprite sprite : spriteList) {
+        for (int i = 0; i < spriteList.size(); i++) {
+            Sprite sprite = spriteList.get(i);
             g2d.drawImage(sprite.getImage(), sprite.getX(), sprite.getY(), this);
         }
         g2d.drawImage(playerShip.getImage(), playerShip.getX(), playerShip.getY(), this);
@@ -98,11 +129,6 @@ public class GameBoard extends JPanel implements ActionListener {
 
         String message2 = "Score: " + score;
         g.drawString(message2, (gui.getWidth() - fontMetrics.stringWidth(message2)) / 2, (gui.getHeight() / 2) + 2 * fontSize);
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        updateAll();
     }
 
     private void updateAll() {
