@@ -17,12 +17,15 @@ public class GameBoard extends JPanel implements Runnable {
 
     private Thread animator;
     private GameGUI gui;
+
     private PlayerShip playerShip;
     private EnemyShipGenerator enemyGenerator;
     private int score;
     private boolean ingame;
 
     private java.util.List<Sprite> spriteList = Collections.synchronizedList(new ArrayList());
+
+    private SpriteLayer<Sprite> enemyProjectiles = new SpriteLayer<Sprite>(); 
 
     GameBoard(GameGUI gui) {
         this.gui = gui;
@@ -50,6 +53,11 @@ public class GameBoard extends JPanel implements Runnable {
         if (ingame) {
             score++;
         }
+    }
+
+    public void insert(Sprite projectile) {
+        // TODO: Use polymorphism once the Sprite sub-classes are setup
+        enemyProjectiles.insert(projectile);
     }
 
     public void addSprite(Sprite sprite) {
