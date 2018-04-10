@@ -37,7 +37,8 @@ public class EnemyShip extends Sprite {
     public void fireShots() {
         EnemyProjectile projectile = new EnemyProjectile(board);
         projectile.setInitialPosition(x + (int)(width / 2), y + height);
-        board.addSprite(projectile);
+        // board.addSprite(projectile);
+        board.insert(projectile);
     }
 
     public boolean isEnemy() {

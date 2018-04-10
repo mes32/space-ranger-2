@@ -8,24 +8,28 @@ package spaceranger;
 
 import java.util.*;
 
-public class SpriteLayer<T extends Sprite> implements Iterable<Sprite> {
+public class SpriteLayer<T extends Sprite> implements Iterable<T> {
 
-    private java.util.List<Sprite> list = Collections.synchronizedList(new ArrayList());
+    private List<T> list = Collections.synchronizedList(new ArrayList());
 
     SpriteLayer() {
 
     }
 
-    public void insert(Sprite sprite) {
+    public void insert(T sprite) {
         list.add(sprite);
     }
 
-    public void remove(Sprite sprite) {
+    public void remove(T sprite) {
         list.remove(sprite);
     }
 
+    public List<T> getList() {
+        return list;
+    }
+
     @Override
-    public Iterator<Sprite> iterator() {
+    public Iterator<T> iterator() {
         return list.iterator();
     }
 

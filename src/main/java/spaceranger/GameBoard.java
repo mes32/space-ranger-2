@@ -25,7 +25,7 @@ public class GameBoard extends JPanel implements Runnable {
 
     private java.util.List<Sprite> spriteList = Collections.synchronizedList(new ArrayList());
 
-    private SpriteLayer<Sprite> enemyProjectiles = new SpriteLayer<Sprite>(); 
+    private SpriteLayer<EnemyProjectile> enemyProjectiles = new SpriteLayer<EnemyProjectile>(); 
 
     GameBoard(GameGUI gui) {
         this.gui = gui;
@@ -39,6 +39,10 @@ public class GameBoard extends JPanel implements Runnable {
         setFocusable(true);
         setBackground(Color.BLACK);
         setDoubleBuffered(true);
+    }
+
+    public SpriteLayer<EnemyProjectile> getEnemyProjectiles() {
+        return enemyProjectiles;
     }
 
     public int getWidth() {
@@ -55,8 +59,7 @@ public class GameBoard extends JPanel implements Runnable {
         }
     }
 
-    public void insert(Sprite projectile) {
-        // TODO: Use polymorphism once the Sprite sub-classes are setup
+    public void insert(EnemyProjectile projectile) {
         enemyProjectiles.insert(projectile);
     }
 
@@ -122,6 +125,11 @@ public class GameBoard extends JPanel implements Runnable {
             Sprite sprite = spriteList.get(i);
             g2d.drawImage(sprite.getImage(), sprite.getX(), sprite.getY(), this);
         }
+        for (int i = 0; i < enemyProjectiles.getList().size(); i++) {
+            // TODO: Why does iterator not work here with the multi-threading
+            EnemyProjectile p = enemyProjectiles.getList().get(i);
+            g2d.drawImage(p.getImage(), p.getX(), p.getY(), this);
+        }
         g2d.drawImage(playerShip.getImage(), playerShip.getX(), playerShip.getY(), this);
     }
 
@@ -155,6 +163,17 @@ public class GameBoard extends JPanel implements Runnable {
                 repaint(sprite.getX(), sprite.getY() - 5, sprite.getWidth(), sprite.getHeight() + 10);
             } else {
                 spriteList.remove(i);
+                repaint(sprite.getX(), sprite.getY() - 5, sprite.getWidth(), sprite.getHeight() + 10);
+            }
+        }
+
+        for (int i = 0; i < enemyProjectiles.getList().size(); i++) {
+            EnemyProjectile sprite = enemyProjectiles.getList().get(i);
+            if (sprite.isActive()) {
+                sprite.update();
+                repaint(sprite.getX(), sprite.getY() - 5, sprite.getWidth(), sprite.getHeight() + 10);
+            } else {
+                enemyProjectiles.remove(sprite);
                 repaint(sprite.getX(), sprite.getY() - 5, sprite.getWidth(), sprite.getHeight() + 10);
             }
         }
