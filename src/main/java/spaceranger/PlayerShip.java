@@ -23,17 +23,17 @@ public class PlayerShip extends Sprite {
     public void update() {
         super.update();
 
-        for (Sprite sprite : board.getSprites()) {
-            if (sprite.isEnemy() && this.collision(sprite)) {
-                sprite.hit();
+        for (EnemyProjectile p : board.getEnemyProjectiles()) {
+            if (this.collision(p)) {
+                p.hit();
                 isDestroyed = true;
                 break;
             }
         }
 
-        for (EnemyProjectile p : board.getEnemyProjectiles()) {
-            if (this.collision(p)) {
-                p.hit();
+        for (EnemyShip enemy : board.getEnemies()) {
+            if (this.collision(enemy)) {
+                enemy.hit();
                 isDestroyed = true;
                 break;
             }

@@ -21,9 +21,9 @@ public class PlayerProjectile extends Sprite {
     public void update() {
         super.update();
 
-        for (Sprite sprite : board.getSprites()) {
-            if (sprite.isEnemy() && this.collision(sprite)) {
-                sprite.hit();
+        for (EnemyShip enemy : board.getEnemies()) {
+            if (this.collision(enemy)) {
+                enemy.hit();
                 this.hit();
                 board.incrementScore();
                 break;

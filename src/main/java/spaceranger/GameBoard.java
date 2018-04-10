@@ -25,6 +25,7 @@ public class GameBoard extends JPanel implements Runnable {
 
     private java.util.List<Sprite> spriteList = Collections.synchronizedList(new ArrayList());
 
+    private SpriteLayer<EnemyShip> enemies = new SpriteLayer<EnemyShip>(); 
     private SpriteLayer<EnemyProjectile> enemyProjectiles = new SpriteLayer<EnemyProjectile>(); 
 
     GameBoard(GameGUI gui) {
@@ -41,10 +42,6 @@ public class GameBoard extends JPanel implements Runnable {
         setDoubleBuffered(true);
     }
 
-    public SpriteLayer<EnemyProjectile> getEnemyProjectiles() {
-        return enemyProjectiles;
-    }
-
     public int getWidth() {
         return gui.getWidth();
     }
@@ -59,8 +56,20 @@ public class GameBoard extends JPanel implements Runnable {
         }
     }
 
+    public void insert(EnemyShip enemy) {
+        enemies.insert(enemy);
+    }
+
     public void insert(EnemyProjectile projectile) {
         enemyProjectiles.insert(projectile);
+    }
+
+    public SpriteLayer<EnemyShip> getEnemies() {
+        return enemies;
+    }
+
+    public SpriteLayer<EnemyProjectile> getEnemyProjectiles() {
+        return enemyProjectiles;
     }
 
     public void addSprite(Sprite sprite) {
@@ -125,6 +134,10 @@ public class GameBoard extends JPanel implements Runnable {
             Sprite sprite = spriteList.get(i);
             g2d.drawImage(sprite.getImage(), sprite.getX(), sprite.getY(), this);
         }
+        for (int i = 0; i < enemies.getList().size(); i++) {
+            EnemyShip e = enemies.getList().get(i);
+            g2d.drawImage(e.getImage(), e.getX(), e.getY(), this);
+        }
         for (int i = 0; i < enemyProjectiles.getList().size(); i++) {
             // TODO: Why does iterator not work here with the multi-threading
             EnemyProjectile p = enemyProjectiles.getList().get(i);
@@ -163,6 +176,17 @@ public class GameBoard extends JPanel implements Runnable {
                 repaint(sprite.getX(), sprite.getY() - 5, sprite.getWidth(), sprite.getHeight() + 10);
             } else {
                 spriteList.remove(i);
+                repaint(sprite.getX(), sprite.getY() - 5, sprite.getWidth(), sprite.getHeight() + 10);
+            }
+        }
+
+        for (int i = 0; i < enemies.getList().size(); i++) {
+            EnemyShip sprite = enemies.getList().get(i);
+            if (sprite.isActive()) {
+                sprite.update();
+                repaint(sprite.getX(), sprite.getY() - 5, sprite.getWidth(), sprite.getHeight() + 10);
+            } else {
+                enemies.remove(sprite);
                 repaint(sprite.getX(), sprite.getY() - 5, sprite.getWidth(), sprite.getHeight() + 10);
             }
         }

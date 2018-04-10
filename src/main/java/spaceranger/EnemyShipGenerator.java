@@ -47,7 +47,7 @@ public class EnemyShipGenerator {
             counter = 0;
             EnemyShip enemyShip = new EnemyShip(board);
             enemyShip.setInitialPosition(getLane(), -20);
-            board.addSprite(enemyShip);
+            board.insert(enemyShip);
         }
     }
 
