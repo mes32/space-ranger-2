@@ -74,14 +74,6 @@ abstract public class Sprite {
         isHit = true;
     }
 
-    public boolean isEnemy() {
-        return false;
-    }
-
-    public boolean isEnemyProjectile() {
-        return false;
-    }
-
     public boolean collision(Sprite other) {
         if (x < other.x + other.width
             && x + width > other.x

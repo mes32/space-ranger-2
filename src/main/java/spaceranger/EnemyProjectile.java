@@ -18,10 +18,6 @@ public class EnemyProjectile extends Sprite {
         dy = 4;
     }
 
-    public boolean isEnemyProjectile() {
-        return true;
-    }
-
     public boolean isActive() {
         if (isHit || y > board.getHeight()) {
             return false;

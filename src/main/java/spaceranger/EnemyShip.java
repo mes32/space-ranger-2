@@ -40,10 +40,6 @@ public class EnemyShip extends Sprite {
         board.insert(projectile);
     }
 
-    public boolean isEnemy() {
-        return true;
-    }
-
     public boolean isActive() {
         if (y > boardHeight || isHit) {
             return false;
