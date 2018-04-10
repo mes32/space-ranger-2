@@ -18,13 +18,12 @@ public class GameBoard extends JPanel implements Runnable {
     private Thread animator;
     private GameGUI gui;
 
-    private PlayerShip playerShip;
     private EnemyShipGenerator enemyGenerator;
     private int score;
     private boolean ingame;
 
-    private java.util.List<Sprite> spriteList = Collections.synchronizedList(new ArrayList());
-
+    private PlayerShip playerShip;
+    private SpriteLayer<PlayerProjectile> playerProjectiles = new SpriteLayer<PlayerProjectile>();
     private SpriteLayer<EnemyShip> enemies = new SpriteLayer<EnemyShip>(); 
     private SpriteLayer<EnemyProjectile> enemyProjectiles = new SpriteLayer<EnemyProjectile>(); 
 
@@ -56,6 +55,10 @@ public class GameBoard extends JPanel implements Runnable {
         }
     }
 
+    public void insert(PlayerProjectile projectile) {
+        playerProjectiles.insert(projectile);
+    }
+
     public void insert(EnemyShip enemy) {
         enemies.insert(enemy);
     }
@@ -64,20 +67,16 @@ public class GameBoard extends JPanel implements Runnable {
         enemyProjectiles.insert(projectile);
     }
 
+    public SpriteLayer<PlayerProjectile> getPlayerProjectiles() {
+        return playerProjectiles;
+    }
+
     public SpriteLayer<EnemyShip> getEnemies() {
         return enemies;
     }
 
     public SpriteLayer<EnemyProjectile> getEnemyProjectiles() {
         return enemyProjectiles;
-    }
-
-    public void addSprite(Sprite sprite) {
-        spriteList.add(sprite);
-    }
-
-    public java.util.List<Sprite> getSprites() {
-        return spriteList;
     }
 
     @Override
@@ -130,9 +129,10 @@ public class GameBoard extends JPanel implements Runnable {
 
     private void drawSprites(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-        for (int i = 0; i < spriteList.size(); i++) {
-            Sprite sprite = spriteList.get(i);
-            g2d.drawImage(sprite.getImage(), sprite.getX(), sprite.getY(), this);
+        g2d.drawImage(playerShip.getImage(), playerShip.getX(), playerShip.getY(), this);
+        for (int i = 0; i < playerProjectiles.getList().size(); i++) {
+            PlayerProjectile p = playerProjectiles.getList().get(i);
+            g2d.drawImage(p.getImage(), p.getX(), p.getY(), this);
         }
         for (int i = 0; i < enemies.getList().size(); i++) {
             EnemyShip e = enemies.getList().get(i);
@@ -143,7 +143,6 @@ public class GameBoard extends JPanel implements Runnable {
             EnemyProjectile p = enemyProjectiles.getList().get(i);
             g2d.drawImage(p.getImage(), p.getX(), p.getY(), this);
         }
-        g2d.drawImage(playerShip.getImage(), playerShip.getX(), playerShip.getY(), this);
     }
 
     private void drawGameover(Graphics g) {
@@ -169,13 +168,13 @@ public class GameBoard extends JPanel implements Runnable {
         }
         repaint(playerShip.getX() - MOVE_PIXELS, playerShip.getY() - MOVE_PIXELS, playerShip.getWidth() + 2*MOVE_PIXELS, playerShip.getHeight() + 2*MOVE_PIXELS);
 
-        for (int i = 0; i < spriteList.size(); i++) {
-            Sprite sprite = spriteList.get(i);
+        for (int i = 0; i < playerProjectiles.getList().size(); i++) {
+            PlayerProjectile sprite = playerProjectiles.getList().get(i);
             if (sprite.isActive()) {
                 sprite.update();
                 repaint(sprite.getX(), sprite.getY() - 5, sprite.getWidth(), sprite.getHeight() + 10);
             } else {
-                spriteList.remove(i);
+                playerProjectiles.remove(sprite);
                 repaint(sprite.getX(), sprite.getY() - 5, sprite.getWidth(), sprite.getHeight() + 10);
             }
         }

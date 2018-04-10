@@ -49,7 +49,7 @@ public class PlayerShip extends Sprite {
         PlayerProjectile missileRight = new PlayerProjectile(board);
         missileLeft.setInitialPosition(x + 10, y + 15);
         missileRight.setInitialPosition(x + width - 5 - 10, y + 15);
-        board.addSprite(missileLeft);
-        board.addSprite(missileRight);
+        board.insert(missileLeft);
+        board.insert(missileRight);
     }
 }
