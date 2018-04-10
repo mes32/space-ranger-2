@@ -1,7 +1,7 @@
 /*
     PlayerShip.java
 
-    This Sprite representing the player character
+    The Sprite representing the player character/avatar
  */
 
 package spaceranger;
@@ -37,8 +37,8 @@ public class PlayerShip extends Sprite {
     }
 
     public void fireMissile() {
-        PlayerMissile missileLeft = new PlayerMissile(board);
-        PlayerMissile missileRight = new PlayerMissile(board);
+        PlayerProjectile missileLeft = new PlayerProjectile(board);
+        PlayerProjectile missileRight = new PlayerProjectile(board);
         missileLeft.setInitialPosition(x + 10, y + 15);
         missileRight.setInitialPosition(x + width - 5 - 10, y + 15);
         board.addSprite(missileLeft);

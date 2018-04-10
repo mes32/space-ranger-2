@@ -1,7 +1,7 @@
 /*
-    PlayerMissile.java
+    PlayerProjectile.java
 
-    This Sprite representing projectiles fired by PlayerShip
+    This Sprite represents projectiles fired by PlayerShip
  */
 
 package spaceranger;
@@ -9,11 +9,11 @@ package spaceranger;
 import java.awt.*;
 import javax.swing.*;
 
-public class PlayerMissile extends Sprite {
+public class PlayerProjectile extends Sprite {
 
     private static final String IMAGE_PATH = "/images/PlayerMissile.png";
 
-    PlayerMissile(GameBoard board) {
+    PlayerProjectile(GameBoard board) {
         super(board, IMAGE_PATH);
         dy = -5;
     }
