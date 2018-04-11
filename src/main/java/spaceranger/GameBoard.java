@@ -200,5 +200,15 @@ public class GameBoard extends JPanel implements Runnable {
                 repaint(sprite.getX(), sprite.getY() - 5, sprite.getWidth(), sprite.getHeight() + 10);
             }
         }
-    }  
+    }
+
+    // @Override
+    // public void repaint() {
+    //     super.repaint();
+    // }
+
+    // @Override
+    // public void repaint(int x, int y, int width, int height) {
+    //     super.repaint(x, y, width, height);
+    // }
 }

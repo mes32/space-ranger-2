@@ -10,7 +10,7 @@ import java.util.*;
 
 public class SpriteLayer<T extends Sprite> implements Iterable<T> {
 
-    private List<T> list = Collections.synchronizedList(new ArrayList());
+    private List<T> list = Collections.synchronizedList(new ArrayList<T>());
 
     SpriteLayer() {
 
