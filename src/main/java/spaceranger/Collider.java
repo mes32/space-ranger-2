@@ -12,5 +12,5 @@ public interface Collider {
 
     public boolean collision(SRect rect);
 
-
+    public boolean collision(SCircle circle);
 }

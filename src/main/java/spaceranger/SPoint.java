@@ -29,6 +29,10 @@ public class SPoint {
         return (int)y;
     }
 
+    public double distance(SPoint other) {
+        return Math.sqrt(Math.pow(this.x - other.x, 2) + Math.pow(this.y - other.y, 2));
+    }
+
     public void translate(double dx, double dy) {
         x += dx;
         y += dy;

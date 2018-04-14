@@ -6,7 +6,7 @@
 
 package spaceranger;
 
-public class SCircle {
+public class SCircle implements Collider {
 
     private SPoint center;
     private double radius;
@@ -16,7 +16,39 @@ public class SCircle {
         radius = r;
     }
 
+    public SPoint getCenter() {
+        return center;
+    }
+
+    public double getRadius() {
+        return radius;
+    }
+
+    public boolean collision(SRect rect) {
+        return rect.collision(this);
+    }
+
+    public boolean collision(SCircle circle) {
+        if (center.distance(circle.center) <= radius + circle.radius) {
+            return true;
+        }
+        return false;
+    }
+
     public void translate(double dx, double dy) {
         center.translate(dx, dy);
+    }
+
+    public boolean within(SRect rect) {
+        double cx = center.getX();
+        double cy = center.getY();
+        double rx_start = rect.getX();
+        double ry_start = rect.getY();
+        double rx_end = rx_start + rect.getWidth();
+        double ry_end = ry_start + rect.getHeight(); 
+        if (cx >= rx_start && cy >= ry_start && cx <= rx_end && cy <= ry_end) {
+            return true;
+        }
+        return false;
     }
 }
