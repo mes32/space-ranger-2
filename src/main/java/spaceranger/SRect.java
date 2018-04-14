@@ -6,7 +6,7 @@
 
 package spaceranger;
 
-public class SRect {
+public class SRect implements Collider {
 
     private SPoint topLeft;
     private SPoint bottomRight;
@@ -45,5 +45,18 @@ public class SRect {
     public void translate(double dx, double dy) {
         topLeft.translate(dx, dy);
         bottomRight.translate(dx, dy);
-    } 
+    }
+
+    public boolean collision(SRect rect) {
+        if (
+            topLeft.getX() < rect.getX() + rect.getWidth() &&
+            topLeft.getX() + width > rect.getX() &&
+            topLeft.getY() < rect.getY() + rect.getHeight() &&
+            height + topLeft.getY() > rect.getY()
+        ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
