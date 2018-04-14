@@ -12,6 +12,7 @@ import javax.swing.*;
 abstract public class Sprite {
 
     protected Image image;
+    protected HitBox hitbox;
 
     protected GameBoard board;
     protected int width;
@@ -29,8 +30,11 @@ abstract public class Sprite {
     }
 
     public void setInitialPosition(int x, int y) {
+        // TODO: This function should not be needed
         this.x = x;
         this.y = y;
+
+        hitbox = new HitBox(new SRect(x, y, x + width, y + height));
     }
 
     public int getX() {
@@ -64,6 +68,8 @@ abstract public class Sprite {
     public void update() {
         x += dx;
         y += dy;
+
+        hitbox.translate(dx, dy);
     }
 
     public boolean isActive() {
@@ -75,14 +81,7 @@ abstract public class Sprite {
     }
 
     public boolean collision(Sprite other) {
-        if (x < other.x + other.width
-            && x + width > other.x
-            && y < other.y + other.height
-            && height + y > other.y)
-        {
-            return true;
-        }
-        return false; 
+        return hitbox.collision(other.hitbox);
     }
     
     private void init() {
@@ -97,6 +96,8 @@ abstract public class Sprite {
         dx = 0;
         dy = 0;
         isHit = false;
+
+        hitbox = new HitBox(new SRect(x, y, x + width, y + height));
     }
     
     protected Image loadImage(String path) {
