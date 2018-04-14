@@ -95,7 +95,8 @@ public class GameBoard extends JPanel implements Runnable {
 
         while (true) {
             updateAll();
-            repaint();
+            // repaint();
+            cullAll();
 
             diffTime = System.currentTimeMillis() - beforeTime;
             sleepTime = DELAY - diffTime;
@@ -166,16 +167,13 @@ public class GameBoard extends JPanel implements Runnable {
         if (playerShip.isDestroyed()) {
             ingame = false;
         }
-        repaint(playerShip.getX() - MOVE_PIXELS, playerShip.getY() - MOVE_PIXELS, playerShip.getWidth() + 2*MOVE_PIXELS, playerShip.getHeight() + 2*MOVE_PIXELS);
+        repaint(playerShip.repaintRect());
 
         for (int i = 0; i < playerProjectiles.getList().size(); i++) {
             PlayerProjectile sprite = playerProjectiles.getList().get(i);
             if (sprite.isActive()) {
                 sprite.update();
-                repaint(sprite.getX(), sprite.getY() - 5, sprite.getWidth(), sprite.getHeight() + 10);
-            } else {
-                playerProjectiles.remove(sprite);
-                repaint(sprite.getX(), sprite.getY() - 5, sprite.getWidth(), sprite.getHeight() + 10);
+                repaint(sprite.repaintRect());
             }
         }
 
@@ -183,10 +181,7 @@ public class GameBoard extends JPanel implements Runnable {
             EnemyShip sprite = enemies.getList().get(i);
             if (sprite.isActive()) {
                 sprite.update();
-                repaint(sprite.getX(), sprite.getY() - 5, sprite.getWidth(), sprite.getHeight() + 10);
-            } else {
-                enemies.remove(sprite);
-                repaint(sprite.getX(), sprite.getY() - 5, sprite.getWidth(), sprite.getHeight() + 10);
+                repaint(sprite.repaintRect());
             }
         }
 
@@ -194,18 +189,46 @@ public class GameBoard extends JPanel implements Runnable {
             EnemyProjectile sprite = enemyProjectiles.getList().get(i);
             if (sprite.isActive()) {
                 sprite.update();
-                repaint(sprite.getX(), sprite.getY() - 5, sprite.getWidth(), sprite.getHeight() + 10);
-            } else {
-                enemyProjectiles.remove(sprite);
-                repaint(sprite.getX(), sprite.getY() - 5, sprite.getWidth(), sprite.getHeight() + 10);
+                repaint(sprite.repaintRect());
             }
         }
     }
+
+    private void cullAll() {
+        for (int i = 0; i < playerProjectiles.getList().size(); i++) {
+            PlayerProjectile sprite = playerProjectiles.getList().get(i);
+            if (!sprite.isActive()) {
+                playerProjectiles.remove(sprite);
+                repaint(sprite.repaintRect());
+            }
+        }
+
+        for (int i = 0; i < enemies.getList().size(); i++) {
+            EnemyShip sprite = enemies.getList().get(i);
+            if (!sprite.isActive()) {
+                enemies.remove(sprite);
+                repaint(sprite.repaintRect());
+            }
+        }
+
+        for (int i = 0; i < enemyProjectiles.getList().size(); i++) {
+            EnemyProjectile sprite = enemyProjectiles.getList().get(i);
+            if (!sprite.isActive()) {
+                enemyProjectiles.remove(sprite);
+                repaint(sprite.repaintRect());
+            }
+        }
+    }
+
 
     // @Override
     // public void repaint() {
     //     super.repaint();
     // }
+
+    public void repaint(SRect rect) {
+        repaint(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
+    }
 
     // @Override
     // public void repaint(int x, int y, int width, int height) {

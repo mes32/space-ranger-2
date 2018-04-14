@@ -13,6 +13,7 @@ abstract public class Sprite {
 
     protected Image image;
     protected HitBox hitbox;
+    protected SRect repaint;
 
     protected GameBoard board;
     protected int width;
@@ -70,6 +71,22 @@ abstract public class Sprite {
         y += dy;
 
         hitbox.translate(dx, dy);
+        int x0, y0, x1, y1;
+        if (dx < 0) {
+            x0 = x;
+            x1 = x - dx + width;
+        } else {
+            x0 = x - dx;
+            x1 = x + width;
+        }
+        if (dy < 0) {
+            y0 = y;
+            y1 = y - dy + height;
+        } else {
+            y0 = y - dy;
+            y1 = y + height;
+        }
+        repaint = new SRect(x0, y0, x1, y1);
     }
 
     public boolean isActive() {
@@ -84,6 +101,10 @@ abstract public class Sprite {
         return hitbox.collision(other.hitbox);
     }
     
+    public SRect repaintRect() {
+        return repaint;
+    }
+
     private void init() {
         width = image.getWidth(null);
         height =  image.getHeight(null);
@@ -98,6 +119,7 @@ abstract public class Sprite {
         isHit = false;
 
         hitbox = new HitBox(new SRect(x, y, x + width, y + height));
+        repaint = new SRect(0, 0, 0, 0);
     }
     
     protected Image loadImage(String path) {
