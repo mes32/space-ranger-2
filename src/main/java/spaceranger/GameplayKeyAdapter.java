@@ -46,6 +46,8 @@ public class GameplayKeyAdapter extends KeyAdapter {
             movingUp = false;
             movingDown = false;
             player.setMoveY(0);
+        } else if (key == KeyEvent.VK_SPACE) {
+            player.setFiring(false);
         }
     }
 
@@ -69,7 +71,7 @@ public class GameplayKeyAdapter extends KeyAdapter {
             movingDown = true;
             player.setMoveY(MOVE_PIXELS);
         } else if (key == KeyEvent.VK_SPACE) {
-            player.fireMissile();
+            player.setFiring(true);
         }
     }
 }

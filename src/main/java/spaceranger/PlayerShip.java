@@ -12,15 +12,20 @@ import javax.swing.*;
 public class PlayerShip extends Sprite {
 
     private static final String IMAGE_PATH = "/images/PlayersShip.png";
+    private static final long FIRING_PERIOD = 400;
 
+    private long lastFiringTime;
+    private boolean firing;
     private boolean isDestroyed;
 
     PlayerShip(GameBoard board) {
         super(board, IMAGE_PATH);
+        lastFiringTime = 0L;
+        firing = false;
         isDestroyed = false;
     }
 
-    public void update() {
+    public void update(long time) {
         super.update();
 
         for (EnemyProjectile p : board.getEnemyProjectiles()) {
@@ -38,13 +43,22 @@ public class PlayerShip extends Sprite {
                 break;
             }
         }
+
+        if (firing && time - lastFiringTime > FIRING_PERIOD) {
+            fireMissile();
+            lastFiringTime = time;
+        }
     }
 
     public boolean isDestroyed() {
         return isDestroyed;
     }
 
-    public void fireMissile() {
+    public void setFiring(boolean firing) {
+        this.firing = firing;
+    }
+
+    private void fireMissile() {
         PlayerProjectile missileLeft = new PlayerProjectile(board);
         PlayerProjectile missileRight = new PlayerProjectile(board);
         missileLeft.setInitialPosition(x + 10, y + 15);

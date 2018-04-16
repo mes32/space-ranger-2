@@ -90,11 +90,13 @@ public class GameBoard extends JPanel implements Runnable {
     @Override
     public void run() {
         long beforeTime = System.currentTimeMillis();
+        long updateTime;
         long diffTime;
         long sleepTime;
 
         while (true) {
-            updateAll();
+            updateTime = System.currentTimeMillis();
+            updateAll(updateTime);
             // repaint();
             cullAll();
 
@@ -160,10 +162,10 @@ public class GameBoard extends JPanel implements Runnable {
         g.drawString(message2, (gui.getWidth() - fontMetrics.stringWidth(message2)) / 2, (gui.getHeight() / 2) + 2 * fontSize);
     }
 
-    private void updateAll() {
+    private void updateAll(long updateTime) {
         enemyGenerator.update();
 
-        playerShip.update();
+        playerShip.update(updateTime);
         if (playerShip.isDestroyed()) {
             ingame = false;
         }
