@@ -18,6 +18,7 @@ public class PlayerMissile extends PlayerProjectile {
     PlayerMissile(GameBoard board) {
         super(board, IMAGE_PATH);
         dy = -2;
+        damage = 10;
         acceleratorCounter = 0;
     }
 

@@ -19,6 +19,7 @@ public class GreenCruiser extends EnemyShip {
     private final int boardHeight;
     private int firingCycle;
     private long lastFiringTime;
+    private HitPoints hitPoints;
 
     GreenCruiser(GameBoard board) {
         super(board, IMAGE_PATH);
@@ -26,7 +27,7 @@ public class GreenCruiser extends EnemyShip {
         firingCycle = 0;
         lastFiringTime = 0L;
         dy = 1;
-        isHit = false;
+        hitPoints = new HitPoints(40);
     }
 
     public void update(long time) {

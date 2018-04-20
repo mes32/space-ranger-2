@@ -16,5 +16,6 @@ public class PlayerBullet extends PlayerProjectile {
     PlayerBullet(GameBoard board) {
         super(board, IMAGE_PATH);
         dy = -7;
+        damage = 4;
     }
 }

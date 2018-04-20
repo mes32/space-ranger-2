@@ -15,6 +15,7 @@ public class EnemyShip extends Sprite {
     private final int boardHeight;
     private int firingCycle;
     private long lastFiringTime;
+    private HitPoints hitPoints;
 
     EnemyShip(GameBoard board, String imagePath) {
         super(board, imagePath);
@@ -22,7 +23,11 @@ public class EnemyShip extends Sprite {
         firingCycle = 0;
         lastFiringTime = 0L;
         dy = 1;
-        isHit = false;
+        hitPoints = new HitPoints(40);
+    }
+
+    public void damage(int damage) {
+        hitPoints.damage(damage);
     }
 
     public void update(long time) {
@@ -30,7 +35,7 @@ public class EnemyShip extends Sprite {
     }
 
     public boolean isActive() {
-        if (y > boardHeight || isHit) {
+        if (y > boardHeight || hitPoints.isDestroyed()) {
             return false;
         } else {
             return true;

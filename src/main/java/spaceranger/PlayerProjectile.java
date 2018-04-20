@@ -13,6 +13,8 @@ public class PlayerProjectile extends Sprite {
 
     // private static final String IMAGE_PATH = "/images/PlayerMissile.png";
 
+    protected int damage = 0;
+
     PlayerProjectile(GameBoard board, String imagePath) {
         super(board, imagePath);
         dy = -5;
@@ -23,9 +25,8 @@ public class PlayerProjectile extends Sprite {
 
         for (EnemyShip enemy : board.getEnemies()) {
             if (this.collision(enemy)) {
-                enemy.hit();
+                enemy.damage(damage);
                 this.hit();
-                board.incrementScore();
                 break;
             }
         }
