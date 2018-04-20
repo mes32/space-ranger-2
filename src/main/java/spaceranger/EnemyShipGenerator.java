@@ -45,9 +45,9 @@ public class EnemyShipGenerator {
         counter++;
         if (counter >= TIME_OUT) {
             counter = 0;
-            EnemyShip enemyShip = new EnemyShip(board);
-            enemyShip.setInitialPosition(getLane(), -20);
-            board.insert(enemyShip);
+            GreenCruiser enemy = new GreenCruiser(board);
+            enemy.setInitialPosition(getLane(), -60);
+            board.insert(enemy);
         }
     }
 

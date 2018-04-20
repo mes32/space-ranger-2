@@ -17,6 +17,7 @@ public class PlayerShip extends Sprite {
 
     private boolean firing;
     private boolean isDestroyed;
+    
     private long bulletFiredAt;
     private long missileFiredAt;
     private boolean missileOffset;
