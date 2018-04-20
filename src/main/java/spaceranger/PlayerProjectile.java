@@ -11,10 +11,10 @@ import javax.swing.*;
 
 public class PlayerProjectile extends Sprite {
 
-    private static final String IMAGE_PATH = "/images/PlayerMissile.png";
+    // private static final String IMAGE_PATH = "/images/PlayerMissile.png";
 
-    PlayerProjectile(GameBoard board) {
-        super(board, IMAGE_PATH);
+    PlayerProjectile(GameBoard board, String imagePath) {
+        super(board, imagePath);
         dy = -5;
     }
 
