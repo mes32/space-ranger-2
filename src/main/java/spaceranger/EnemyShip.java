@@ -13,24 +13,31 @@ import javax.swing.*;
 public class EnemyShip extends Sprite {
 
     private static final String IMAGE_PATH = "/images/EnemyShip.png";
-    private static final double P_FIRE = 0.01;
+    private static final long FIRING_PERIOD = 400;
+    private static final int FIRING_BURST = 4;
 
     private final int boardHeight;
-    private Random random;
+    private int firingCycle;
+    private long lastFiringTime;
 
     EnemyShip(GameBoard board) {
         super(board, IMAGE_PATH);
         boardHeight = board.getHeight();
-        random = new Random();
+        firingCycle = 0;
+        lastFiringTime = 0L;
         dy = 1;
         isHit = false;
     }
 
-    public void update() {
+    public void update(long time) {
         super.update();
 
-        if (random.nextDouble() <= P_FIRE) {
-            fireShots();
+        if (time - lastFiringTime > FIRING_PERIOD) {
+            firingCycle++;
+            lastFiringTime = time;
+            if (firingCycle % FIRING_BURST != 0) {
+                fireShots();
+            }   
         }
     }
 

@@ -182,7 +182,7 @@ public class GameBoard extends JPanel implements Runnable {
         for (int i = 0; i < enemies.getList().size(); i++) {
             EnemyShip sprite = enemies.getList().get(i);
             if (sprite.isActive()) {
-                sprite.update();
+                sprite.update(updateTime);
                 repaint(sprite.repaintRect());
             }
         }
