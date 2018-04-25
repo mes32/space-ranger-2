@@ -31,11 +31,6 @@ public class EnemyShip extends Sprite {
         super.update();
     }
 
-    // @Override
-    // public void damage(Sprite other) {
-    //     super.damage(other);
-    // }
-
     public boolean isActive() {
         if (hitPoints.isDestroyed() || y > boardHeight) {
             return false;
