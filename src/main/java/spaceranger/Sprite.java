@@ -40,6 +40,12 @@ abstract public class Sprite {
         hitbox = new HitBox(new SRect(x, y, x + width, y + height));
     }
 
+    public void setCenter(int x, int y) {
+        int xOffset = x - (int)(width / 2);
+        int yOffset = y - (int)(height / 2);
+        setInitialPosition(xOffset, yOffset);
+    }
+
     public int getX() {
         return x;
     }
@@ -64,8 +70,16 @@ abstract public class Sprite {
         dx = delta;
     }
 
+    public int getMoveX() {
+        return dx;
+    }
+
     public void setMoveY(int delta) {
         dy = delta;
+    }
+
+    public int getMoveY() {
+        return dy;
     }
 
     public void update() {

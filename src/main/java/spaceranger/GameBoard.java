@@ -24,8 +24,9 @@ public class GameBoard extends JPanel implements Runnable {
 
     private PlayerShip playerShip;
     private SpriteLayer<PlayerProjectile> playerProjectiles = new SpriteLayer<PlayerProjectile>();
-    private SpriteLayer<EnemyShip> enemies = new SpriteLayer<EnemyShip>(); 
-    private SpriteLayer<EnemyProjectile> enemyProjectiles = new SpriteLayer<EnemyProjectile>(); 
+    private SpriteLayer<EnemyShip> enemies = new SpriteLayer<EnemyShip>();
+    private SpriteLayer<EnemyProjectile> enemyProjectiles = new SpriteLayer<EnemyProjectile>();
+    private SpriteLayer<EnemySpark> enemySparks = new SpriteLayer<EnemySpark>();
 
     GameBoard(GameGUI gui) {
         this.gui = gui;
@@ -65,6 +66,10 @@ public class GameBoard extends JPanel implements Runnable {
 
     public void insert(EnemyProjectile projectile) {
         enemyProjectiles.insert(projectile);
+    }
+
+    public void insert(EnemySpark spark) {
+        enemySparks.insert(spark);
     }
 
     public SpriteLayer<PlayerProjectile> getPlayerProjectiles() {
@@ -143,7 +148,12 @@ public class GameBoard extends JPanel implements Runnable {
         for (int i = 0; i < enemyProjectiles.getList().size(); i++) {
             // TODO: Why does iterator not work here with the multi-threading
             EnemyProjectile p = enemyProjectiles.getList().get(i);
+            // TODO: Could overload the drawImage interface to simplify the following function call
             g2d.drawImage(p.getImage(), p.getX(), p.getY(), this);
+        }
+        for (int i = 0; i < enemySparks.getList().size(); i++) {
+            EnemySpark s = enemySparks.getList().get(i);
+            g2d.drawImage(s.getImage(), s.getX(), s.getY(), this);
         }
     }
 
@@ -193,6 +203,14 @@ public class GameBoard extends JPanel implements Runnable {
                 repaint(sprite.repaintRect());
             }
         }
+
+        for (int i = 0; i < enemySparks.getList().size(); i++) {
+            EnemySpark sprite = enemySparks.getList().get(i);
+            if (sprite.isActive()) {
+                sprite.update(updateTime);
+                repaint(sprite.repaintRect());
+            }
+        }
     }
 
     private void cullAll() {
@@ -219,8 +237,15 @@ public class GameBoard extends JPanel implements Runnable {
                 repaint(sprite.repaintRect());
             }
         }
-    }
 
+        for (int i = 0; i < enemySparks.getList().size(); i++) {
+            EnemySpark sprite = enemySparks.getList().get(i);
+            if (!sprite.isActive()) {
+                enemySparks.remove(sprite);
+                repaint(sprite.repaintRect());
+            }
+        }
+    }
 
     // @Override
     // public void repaint() {

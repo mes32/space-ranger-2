@@ -27,7 +27,12 @@ public class PlayerProjectile extends Sprite {
         for (EnemyShip enemy : board.getEnemies()) {
             if (this.collision(enemy)) {
                 damage(enemy);
-                if (!enemy.isActive()) {
+                if (enemy.isActive()) {
+                    EnemySpark spark = new EnemySpark(board, enemy);
+                    int xOffset = (int)(x + width/2);
+                    spark.setCenter(x, y);
+                    board.insert(spark);
+                } else {
                     board.incrementScore();
                 }
                 break;
