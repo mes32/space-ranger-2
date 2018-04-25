@@ -16,7 +16,6 @@ public class PlayerShip extends Sprite {
     private static final long MISSILE_FIRING_PERIOD = 400;
 
     private boolean firing;
-    private HitPoints hitPoints;
 
     private long bulletFiredAt;
     private long missileFiredAt;
@@ -25,7 +24,10 @@ public class PlayerShip extends Sprite {
     PlayerShip(GameBoard board) {
         super(board, IMAGE_PATH);
         firing = false;
+
         hitPoints = new HitPoints(100);
+        collideDamage = 1000;
+
         bulletFiredAt = 0L;
         missileFiredAt = 0L;
         missileOffset = false;
@@ -36,15 +38,13 @@ public class PlayerShip extends Sprite {
 
         for (EnemyProjectile p : board.getEnemyProjectiles()) {
             if (this.collision(p)) {
-                p.hit();
-                hitPoints.damage(20);
+                this.damage(p);
             }
         }
 
         for (EnemyShip enemy : board.getEnemies()) {
             if (this.collision(enemy)) {
-                enemy.hit();
-                hitPoints.damage(40);
+                this.damage(enemy);
             }
         }
 
@@ -58,10 +58,6 @@ public class PlayerShip extends Sprite {
                 missileFiredAt = time;
             }
         }
-    }
-
-    public boolean isDestroyed() {
-        return hitPoints.isDestroyed();
     }
 
     public void setFiring(boolean firing) {

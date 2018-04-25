@@ -22,7 +22,9 @@ abstract public class Sprite {
     protected int y;
     protected int dx;
     protected int dy;
-    protected boolean isHit;
+
+    protected int collideDamage = 0;
+    protected HitPoints hitPoints;
 
     Sprite(GameBoard board, String path) {
         this.board = board;
@@ -90,15 +92,16 @@ abstract public class Sprite {
     }
 
     public boolean isActive() {
-        return true;
-    }
-
-    public void hit() {
-        isHit = true;
+        return hitPoints.isDestroyed();
     }
 
     public boolean collision(Sprite other) {
         return hitbox.collision(other.hitbox);
+    }
+
+    public void damage(Sprite other) {
+        this.hitPoints.damage(other.collideDamage);
+        other.hitPoints.damage(this.collideDamage);
     }
     
     public SRect repaintRect() {
@@ -116,7 +119,6 @@ abstract public class Sprite {
         y = (int)(guiHeight - 1.5 * height);
         dx = 0;
         dy = 0;
-        isHit = false;
 
         hitbox = new HitBox(new SRect(x, y, x + width, y + height));
         repaint = new SRect(0, 0, 0, 0);

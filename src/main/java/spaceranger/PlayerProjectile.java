@@ -11,13 +11,14 @@ import javax.swing.*;
 
 public class PlayerProjectile extends Sprite {
 
-    // private static final String IMAGE_PATH = "/images/PlayerMissile.png";
-
     protected int damage = 0;
 
     PlayerProjectile(GameBoard board, String imagePath) {
         super(board, imagePath);
         dy = -5;
+
+        hitPoints = new HitPoints(1);
+        collideDamage = 0;
     }
 
     public void update() {
@@ -25,15 +26,14 @@ public class PlayerProjectile extends Sprite {
 
         for (EnemyShip enemy : board.getEnemies()) {
             if (this.collision(enemy)) {
-                enemy.damage(damage);
-                this.hit();
+                damage(enemy);
                 break;
             }
         }
     }
 
     public boolean isActive() {
-        if (y + height < 0 || isHit) {
+        if (hitPoints.isDestroyed() || y + height < 0) {
             return false;
         } else {
             return true;

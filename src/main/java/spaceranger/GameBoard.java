@@ -97,7 +97,6 @@ public class GameBoard extends JPanel implements Runnable {
         while (true) {
             updateTime = System.currentTimeMillis();
             updateAll(updateTime);
-            // repaint();
             cullAll();
 
             diffTime = System.currentTimeMillis() - beforeTime;
@@ -166,7 +165,7 @@ public class GameBoard extends JPanel implements Runnable {
         enemyGenerator.update();
 
         playerShip.update(updateTime);
-        if (playerShip.isDestroyed()) {
+        if (playerShip.isActive()) {
             ingame = false;
         }
         repaint(playerShip.repaintRect());

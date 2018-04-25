@@ -16,10 +16,13 @@ public class EnemyProjectile extends Sprite {
     EnemyProjectile(GameBoard board) {
         super(board, IMAGE_PATH);
         dy = 4;
+
+        hitPoints = new HitPoints(1);
+        collideDamage = 20;
     }
 
     public boolean isActive() {
-        if (isHit || y > board.getHeight()) {
+        if (hitPoints.isDestroyed() || y > board.getHeight()) {
             return false;
         } else {
             return true;
