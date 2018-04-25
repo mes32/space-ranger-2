@@ -24,6 +24,7 @@ public class GameBoard extends JPanel implements Runnable {
 
     private PlayerShip playerShip;
     private SpriteLayer<PlayerProjectile> playerProjectiles = new SpriteLayer<PlayerProjectile>();
+    private SpriteLayer<PlayerSpark> playerSparks = new SpriteLayer<PlayerSpark>();
     private SpriteLayer<EnemyShip> enemies = new SpriteLayer<EnemyShip>();
     private SpriteLayer<EnemyProjectile> enemyProjectiles = new SpriteLayer<EnemyProjectile>();
     private SpriteLayer<EnemySpark> enemySparks = new SpriteLayer<EnemySpark>();
@@ -54,6 +55,10 @@ public class GameBoard extends JPanel implements Runnable {
         if (ingame) {
             score++;
         }
+    }
+
+    public void insert(PlayerSpark spark) {
+        playerSparks.insert(spark);
     }
 
     public void insert(PlayerProjectile projectile) {
@@ -141,6 +146,10 @@ public class GameBoard extends JPanel implements Runnable {
             PlayerProjectile p = playerProjectiles.getList().get(i);
             g2d.drawImage(p.getImage(), p.getX(), p.getY(), this);
         }
+        for (int i = 0; i < playerSparks.getList().size(); i++) {
+            PlayerSpark s = playerSparks.getList().get(i);
+            g2d.drawImage(s.getImage(), s.getX(), s.getY(), this);
+        }
         for (int i = 0; i < enemies.getList().size(); i++) {
             EnemyShip e = enemies.getList().get(i);
             g2d.drawImage(e.getImage(), e.getX(), e.getY(), this);
@@ -188,6 +197,14 @@ public class GameBoard extends JPanel implements Runnable {
             }
         }
 
+        for (int i = 0; i < playerSparks.getList().size(); i++) {
+            PlayerSpark sprite = playerSparks.getList().get(i);
+            if (sprite.isActive()) {
+                sprite.update(updateTime);
+                repaint(sprite.repaintRect());
+            }
+        }
+
         for (int i = 0; i < enemies.getList().size(); i++) {
             EnemyShip sprite = enemies.getList().get(i);
             if (sprite.isActive()) {
@@ -218,6 +235,14 @@ public class GameBoard extends JPanel implements Runnable {
             PlayerProjectile sprite = playerProjectiles.getList().get(i);
             if (!sprite.isActive()) {
                 playerProjectiles.remove(sprite);
+                repaint(sprite.repaintRect());
+            }
+        }
+
+        for (int i = 0; i < playerSparks.getList().size(); i++) {
+            PlayerSpark sprite = playerSparks.getList().get(i);
+            if (!sprite.isActive()) {
+                playerSparks.remove(sprite);
                 repaint(sprite.repaintRect());
             }
         }

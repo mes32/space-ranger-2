@@ -83,6 +83,13 @@ abstract public class Sprite {
     }
 
     public void update() {
+        update(this.dx, this.dy);
+    }
+
+    public void update(int dx, int dy) {
+        this.dx = dx;
+        this.dy = dy;
+
         x += dx;
         y += dy;
 

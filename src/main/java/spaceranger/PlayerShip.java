@@ -39,6 +39,13 @@ public class PlayerShip extends Sprite {
         for (EnemyProjectile p : board.getEnemyProjectiles()) {
             if (this.collision(p)) {
                 this.damage(p);
+                PlayerSpark spark = new PlayerSpark(board, this);
+
+                int xCenter = (int)(p.getX() + p.getWidth() / 2);
+                int yCenter = (int)(p.getY() + p.getHeight() / 2);
+
+                spark.setCenter(xCenter, yCenter);
+                board.insert(spark);
             }
         }
 
