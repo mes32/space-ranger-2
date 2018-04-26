@@ -1,7 +1,7 @@
 /*
-    EnemySpark.java
+    PlayerSpark.java
 
-    This Sprite represents sparks produced by projectiles hitting EnemyShip
+    This Sprite representing sparks from projectiles hitting PlayerShip
  */
 
 package spaceranger;
@@ -9,23 +9,23 @@ package spaceranger;
 import java.awt.*;
 import javax.swing.*;
 
-public class EnemySpark extends Sprite {
+public class PlayerSpark extends Sprite {
 
-    private static final long DURATION = 50;
+    private static final long DURRATION = 80;
     private static final String[] IMAGE_PATHS = {
-        "/images/EnemySpark0.png",
-        "/images/EnemySpark1.png",
-        "/images/EnemySpark2.png"
+        "/images/PlayerSpark0.png",
+        "/images/PlayerSpark1.png",
+        "/images/PlayerSpark2.png"
     };
     private static final int NUM_IMAGE_PATHS = IMAGE_PATHS.length;
 
     private static int count = 0;
 
-    protected EnemyShip parent;
+    protected PlayerShip parent;
     protected boolean burntOut;
     protected long startTime;
 
-    EnemySpark(GameBoard board, EnemyShip parent) {
+    PlayerSpark(GameBoard board, PlayerShip parent) {
         super(board, IMAGE_PATHS[count]);
         count++;
         if (count >= NUM_IMAGE_PATHS) {
@@ -44,18 +44,15 @@ public class EnemySpark extends Sprite {
     }
 
     public void update(long time) {
-        super.update();
+        super.update(parent.getMoveX(), parent.getMoveY());
 
-        dx = parent.getMoveX();
-        dy = parent.getMoveY();
-
-        if (time - startTime >= DURATION) {
+        if (time - startTime >= DURRATION) {
             burntOut = true;
         } 
     }
 
     public boolean isActive() {
-        if (burntOut || y > board.getHeight()) {
+        if (burntOut) {
             return false;
         } else {
             return true;

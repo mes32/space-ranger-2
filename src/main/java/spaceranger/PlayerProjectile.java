@@ -33,6 +33,13 @@ public class PlayerProjectile extends Sprite {
                     spark.setCenter(x, y);
                     board.insert(spark);
                 } else {
+                    EnemyExplosion explosion = new EnemyExplosion(board, enemy);
+
+                    int xCenter = (int)(enemy.getX() + enemy.getWidth() / 2);
+                    int yCenter = (int)(enemy.getY() + enemy.getHeight() / 2);
+
+                    explosion.setCenter(xCenter, yCenter);
+                    board.insert(explosion);
                     board.incrementScore();
                 }
                 break;

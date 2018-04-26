@@ -28,6 +28,7 @@ public class GameBoard extends JPanel implements Runnable {
     private SpriteLayer<EnemyShip> enemies = new SpriteLayer<EnemyShip>();
     private SpriteLayer<EnemyProjectile> enemyProjectiles = new SpriteLayer<EnemyProjectile>();
     private SpriteLayer<EnemySpark> enemySparks = new SpriteLayer<EnemySpark>();
+    private SpriteLayer<EnemyExplosion> enemyExplosions = new SpriteLayer<EnemyExplosion>();
 
     GameBoard(GameGUI gui) {
         this.gui = gui;
@@ -75,6 +76,10 @@ public class GameBoard extends JPanel implements Runnable {
 
     public void insert(EnemySpark spark) {
         enemySparks.insert(spark);
+    }
+
+    public void insert(EnemyExplosion explosion) {
+        enemyExplosions.insert(explosion);
     }
 
     public SpriteLayer<PlayerProjectile> getPlayerProjectiles() {
@@ -164,6 +169,10 @@ public class GameBoard extends JPanel implements Runnable {
             EnemySpark s = enemySparks.getList().get(i);
             g2d.drawImage(s.getImage(), s.getX(), s.getY(), this);
         }
+        for (int i = 0; i < enemyExplosions.getList().size(); i++) {
+            EnemyExplosion e = enemyExplosions.getList().get(i);
+            g2d.drawImage(e.getImage(), e.getX(), e.getY(), this);
+        }
     }
 
     private void drawGameover(Graphics g) {
@@ -228,6 +237,14 @@ public class GameBoard extends JPanel implements Runnable {
                 repaint(sprite.repaintRect());
             }
         }
+
+        for (int i = 0; i < enemyExplosions.getList().size(); i++) {
+            EnemyExplosion sprite = enemyExplosions.getList().get(i);
+            if (sprite.isActive()) {
+                sprite.update(updateTime);
+                repaint(sprite.repaintRect());
+            }
+        }
     }
 
     private void cullAll() {
@@ -267,6 +284,14 @@ public class GameBoard extends JPanel implements Runnable {
             EnemySpark sprite = enemySparks.getList().get(i);
             if (!sprite.isActive()) {
                 enemySparks.remove(sprite);
+                repaint(sprite.repaintRect());
+            }
+        }
+
+        for (int i = 0; i < enemyExplosions.getList().size(); i++) {
+            EnemyExplosion sprite = enemyExplosions.getList().get(i);
+            if (!sprite.isActive()) {
+                enemyExplosions.remove(sprite);
                 repaint(sprite.repaintRect());
             }
         }
