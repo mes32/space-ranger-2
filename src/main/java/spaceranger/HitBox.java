@@ -13,16 +13,43 @@ public class HitBox {
 
     HitBox(SRect container) {
         this.container = container;
+        components = new Collider[0];
+    }
+
+    HitBox(SRect container, Collider[] components) {
+        // TODO: Possibly this should just take the components and determine the container from that
+        this.container = container;
+        this.components = components;
     }
 
     public void translate(double dx, double dy) {
         container.translate(dx, dy);
+        for (Collider c : components) {
+            c.translate(dx, dy);
+        }
     }
 
-    public boolean collision(HitBox hitbox) {
-        if (container.collision(hitbox.container)) {
-            // TODO: Use components array and check components for collisions
-            return true;
+    public SRect getContainer() {
+        return container;
+    }
+
+    public Collider[] getComponents() {
+        return components;
+    }
+
+    public boolean collision(HitBox other) {
+        if (this.components.length == 0) {
+            return container.collision(other);
+        }
+
+        if (this.container.collision(other.container)) {
+
+            for (Collider c : this.components) {
+                if (c.collision(other)) {
+                    return true;
+                }
+            }
+            return false;
         }
         return false;
     }

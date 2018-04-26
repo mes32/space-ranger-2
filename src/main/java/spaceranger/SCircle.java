@@ -35,6 +35,22 @@ public class SCircle implements Collider {
         return false;
     }
 
+    public boolean collision(HitBox hitbox) {
+        SRect container = hitbox.getContainer();
+        if (collision(container)) {
+            Collider[] components = hitbox.getComponents();
+            if (components.length == 0) {
+                return true;
+            }
+            for (Collider c : components) {
+                if (c.collision(this)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public void translate(double dx, double dy) {
         center.translate(dx, dy);
     }
