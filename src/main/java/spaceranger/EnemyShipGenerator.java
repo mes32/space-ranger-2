@@ -50,13 +50,13 @@ public class EnemyShipGenerator {
 
             mineCounter++;
             EnemyShip enemy;
-            // if (mineCounter % 3 == 0) {
+            if (mineCounter % 3 == 0) {
                 mineCounter = 0;
                 enemy = new BigRoundMine(board, getLane(), -60);
-            // } else {
-            //     enemy = new GreenCruiser(board);
-            //     enemy.setInitialPosition(getLane(), -60);
-            // }
+            } else {
+                enemy = new GreenCruiser(board);
+                enemy.setInitialPosition(getLane(), -60);
+            }
             board.insert(enemy);
         }
     }

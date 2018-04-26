@@ -27,9 +27,8 @@ public class BigRoundMine extends EnemyShip {
         this.y = y;
 
         SRect container = new SRect(x, y, x + width, y + height);
-        Collider[] components = new Collider[2];
-        components[0] = new SRect(x, y, x + (int)(width / 2), y + (int)(height / 2));
-        components[1] = new SRect(x + (int)(width / 2), y + (int)(height / 2), x + width, y + height);
+        Collider[] components = new Collider[1];
+        components[0] = new SCircle(x + width / 2, y + height / 2, 60);
 
         hitbox = new HitBox(container, components);
     }
