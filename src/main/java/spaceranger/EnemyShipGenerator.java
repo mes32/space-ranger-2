@@ -12,7 +12,7 @@ import javax.swing.*;
 
 public class EnemyShipGenerator {
 
-    private static final int TIME_OUT = 80;
+    private static final int TIME_OUT = 160;
     private static final int[] RANDOM_LANE = {
         922, 728, 865, 741, 959, 279, 233, 210, 273, 945,
         81, 242, 235, 921, 916, 543, 597, 658, 403, 886,
@@ -30,6 +30,8 @@ public class EnemyShipGenerator {
     private int index;
     private int counter;
 
+    private int mineCounter = 0;
+
     EnemyShipGenerator(GameBoard board) {
         this.board = board;
         init();
@@ -45,7 +47,15 @@ public class EnemyShipGenerator {
         counter++;
         if (counter >= TIME_OUT) {
             counter = 0;
-            GreenCruiser enemy = new GreenCruiser(board);
+
+            mineCounter++;
+            EnemyShip enemy;
+            if (mineCounter % 3 == 0) {
+                mineCounter = 0;
+                enemy = new BigRoundMine(board);
+            } else {
+                enemy = new GreenCruiser(board);
+            }
             enemy.setInitialPosition(getLane(), -60);
             board.insert(enemy);
         }
