@@ -43,6 +43,7 @@ public class PlayerSpark extends Sprite {
         startTime = System.currentTimeMillis();
     }
 
+    @Override
     public void update(long time) {
         super.update(parent.getMoveX(), parent.getMoveY());
 
@@ -51,6 +52,7 @@ public class PlayerSpark extends Sprite {
         } 
     }
 
+    @Override
     public boolean isActive() {
         if (burntOut) {
             return false;

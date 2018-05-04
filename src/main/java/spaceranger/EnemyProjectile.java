@@ -21,6 +21,7 @@ public class EnemyProjectile extends Sprite {
         collideDamage = 20;
     }
 
+    @Override
     public boolean isActive() {
         if (hitPoints.isDestroyed() || y > board.getHeight()) {
             return false;

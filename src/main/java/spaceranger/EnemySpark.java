@@ -43,8 +43,9 @@ public class EnemySpark extends Sprite {
         startTime = System.currentTimeMillis();
     }
 
+    @Override
     public void update(long time) {
-        super.update();
+        super.update(time);
 
         dx = parent.getMoveX();
         dy = parent.getMoveY();
@@ -54,6 +55,7 @@ public class EnemySpark extends Sprite {
         } 
     }
 
+    @Override
     public boolean isActive() {
         if (burntOut || y > board.getHeight()) {
             return false;

@@ -31,8 +31,9 @@ public class GreenCruiser extends EnemyShip {
         collideDamage = 40;
     }
 
+    @Override
     public void update(long time) {
-        super.update();
+        super.update(time);
 
         if (time - lastFiringTime > FIRING_PERIOD) {
             firingCycle++;

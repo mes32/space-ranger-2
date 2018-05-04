@@ -33,8 +33,9 @@ public class PlayerShip extends Sprite {
         missileOffset = false;
     }
 
+    @Override
     public void update(long time) {
-        super.update();
+        super.update(time);
 
         for (EnemyProjectile p : board.getEnemyProjectiles()) {
             if (this.collision(p)) {

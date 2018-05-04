@@ -22,9 +22,11 @@ public class PlayerMissile extends PlayerProjectile {
         acceleratorCounter = 0;
     }
 
-    public void update() {
-        super.update();
+    @Override
+    public void update(long time) {
+        super.update(time);
 
+        // TODO: Acceleration should be a function of time not iterations
         acceleratorCounter++;
         if (dy > -7 && acceleratorCounter % 10 == 0) {
             dy--;

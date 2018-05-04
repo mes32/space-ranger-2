@@ -82,11 +82,8 @@ abstract public class Sprite {
         return dy;
     }
 
-    public void update() {
-        update(this.dx, this.dy);
-    }
-
     public void update(int dx, int dy) {
+        // TODO: This function should be renamed to translate(int dx, int dy)
         this.dx = dx;
         this.dy = dy;
 
@@ -112,8 +109,12 @@ abstract public class Sprite {
         repaint = new SRect(x0, y0, x1, y1);
     }
 
+    public void update(long time) {
+        update(this.dx, this.dy);
+    }
+
     public boolean isActive() {
-        return hitPoints.isDestroyed();
+        return !hitPoints.isDestroyed();
     }
 
     public boolean collision(Sprite other) {

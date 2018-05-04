@@ -53,8 +53,9 @@ public class EnemyExplosion extends Sprite {
         lastTime = System.currentTimeMillis();
     }
 
+    @Override
     public void update(long time) {
-        super.update();
+        super.update(time);
 
         if (time - lastTime >= STAGE_DURATION) {
             lastTime = time;
@@ -67,6 +68,7 @@ public class EnemyExplosion extends Sprite {
         }
     }
 
+    @Override
     public boolean isActive() {
         if (burntOut) {
             return false;

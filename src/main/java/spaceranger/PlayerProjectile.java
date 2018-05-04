@@ -21,8 +21,9 @@ public class PlayerProjectile extends Sprite {
         collideDamage = 0;
     }
 
-    public void update() {
-        super.update();
+    @Override
+    public void update(long time) {
+        super.update(time);
 
         for (EnemyShip enemy : board.getEnemies()) {
             if (this.collision(enemy)) {
@@ -47,6 +48,7 @@ public class PlayerProjectile extends Sprite {
         }
     }
 
+    @Override
     public boolean isActive() {
         if (hitPoints.isDestroyed() || y + height < 0) {
             return false;

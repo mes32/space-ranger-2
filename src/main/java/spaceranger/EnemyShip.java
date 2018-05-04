@@ -27,10 +27,7 @@ public class EnemyShip extends Sprite {
         collideDamage = 40;
     }
 
-    public void update(long time) {
-        super.update();
-    }
-
+    @Override
     public boolean isActive() {
         if (hitPoints.isDestroyed() || y > boardHeight) {
             return false;

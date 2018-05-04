@@ -23,6 +23,8 @@ public class GameBoard extends JPanel implements Runnable {
     private boolean ingame;
 
     private PlayerShip playerShip;
+
+    private SpriteLayer<PlayerShip> playerLayer = new SpriteLayer<PlayerShip>();
     private SpriteLayer<PlayerProjectile> playerProjectiles = new SpriteLayer<PlayerProjectile>();
     private SpriteLayer<PlayerSpark> playerSparks = new SpriteLayer<PlayerSpark>();
     private SpriteLayer<EnemyShip> enemies = new SpriteLayer<EnemyShip>();
@@ -30,10 +32,21 @@ public class GameBoard extends JPanel implements Runnable {
     private SpriteLayer<EnemySpark> enemySparks = new SpriteLayer<EnemySpark>();
     private SpriteLayer<EnemyExplosion> enemyExplosions = new SpriteLayer<EnemyExplosion>();
 
+    private SpriteLayer[] layers = {
+        playerLayer,
+        playerProjectiles,
+        playerSparks,
+        enemies,
+        enemyProjectiles,
+        enemySparks,
+        enemyExplosions
+    };
+
     GameBoard(GameGUI gui) {
         this.gui = gui;
 
         playerShip = new PlayerShip(this);
+        playerLayer.insert(playerShip);
         enemyGenerator = new EnemyShipGenerator(this);
         score = 0;
         ingame = true;
@@ -146,7 +159,10 @@ public class GameBoard extends JPanel implements Runnable {
 
     private void drawSprites(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-        drawImage(playerShip, g2d);
+        for (int i = 0; i < playerLayer.getList().size(); i++) {
+            PlayerShip p = playerLayer.getList().get(i);
+            drawImage(p, g2d);
+        }
         for (int i = 0; i < playerProjectiles.getList().size(); i++) {
             PlayerProjectile p = playerProjectiles.getList().get(i);
             drawImage(p, g2d);
@@ -192,18 +208,25 @@ public class GameBoard extends JPanel implements Runnable {
     }
 
     private void updateAll(long updateTime) {
+        if (!playerShip.isActive()) {
+            ingame = false;
+            return;
+        }
+
         enemyGenerator.update();
 
-        playerShip.update(updateTime);
-        if (playerShip.isActive()) {
-            ingame = false;
+        for (int i = 0; i < playerLayer.getList().size(); i++) {
+            Sprite sprite = playerLayer.getList().get(i);
+            if (sprite.isActive()) {
+                sprite.update(updateTime);
+                repaint(sprite.repaintRect());
+            }
         }
-        repaint(playerShip.repaintRect());
 
         for (int i = 0; i < playerProjectiles.getList().size(); i++) {
             PlayerProjectile sprite = playerProjectiles.getList().get(i);
             if (sprite.isActive()) {
-                sprite.update();
+                sprite.update(updateTime);
                 repaint(sprite.repaintRect());
             }
         }
@@ -227,7 +250,7 @@ public class GameBoard extends JPanel implements Runnable {
         for (int i = 0; i < enemyProjectiles.getList().size(); i++) {
             EnemyProjectile sprite = enemyProjectiles.getList().get(i);
             if (sprite.isActive()) {
-                sprite.update();
+                sprite.update(updateTime);
                 repaint(sprite.repaintRect());
             }
         }
