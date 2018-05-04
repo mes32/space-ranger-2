@@ -28,9 +28,12 @@ public class SpriteLayer<T extends Sprite> implements Iterable<T> {
         return list;
     }
 
+    public Sprite get(int i) {
+        return list.get(i);
+    }
+
     @Override
     public Iterator<T> iterator() {
         return list.iterator();
     }
-
 }

@@ -125,7 +125,6 @@ public class GameBoard extends JPanel implements Runnable {
         while (true) {
             updateTime = System.currentTimeMillis();
             updateAll(updateTime);
-            cullAll();
 
             diffTime = System.currentTimeMillis() - beforeTime;
             sleepTime = DELAY - diffTime;
@@ -159,33 +158,11 @@ public class GameBoard extends JPanel implements Runnable {
 
     private void drawSprites(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-        for (int i = 0; i < playerLayer.getList().size(); i++) {
-            PlayerShip p = playerLayer.getList().get(i);
-            drawImage(p, g2d);
-        }
-        for (int i = 0; i < playerProjectiles.getList().size(); i++) {
-            PlayerProjectile p = playerProjectiles.getList().get(i);
-            drawImage(p, g2d);
-        }
-        for (int i = 0; i < playerSparks.getList().size(); i++) {
-            PlayerSpark s = playerSparks.getList().get(i);
-            drawImage(s, g2d);
-        }
-        for (int i = 0; i < enemies.getList().size(); i++) {
-            EnemyShip e = enemies.getList().get(i);
-            drawImage(e, g2d);
-        }
-        for (int i = 0; i < enemyProjectiles.getList().size(); i++) {
-            EnemyProjectile p = enemyProjectiles.getList().get(i);
-            drawImage(p, g2d);
-        }
-        for (int i = 0; i < enemySparks.getList().size(); i++) {
-            EnemySpark s = enemySparks.getList().get(i);
-            drawImage(s, g2d);
-        }
-        for (int i = 0; i < enemyExplosions.getList().size(); i++) {
-            EnemyExplosion e = enemyExplosions.getList().get(i);
-            drawImage(e, g2d);
+        for (SpriteLayer layer : layers) {
+            for (int i = 0; i < layer.getList().size(); i++) {
+                Sprite sprite = layer.get(i);
+                drawImage(sprite, g2d);
+            }
         }
     }
 
@@ -215,124 +192,20 @@ public class GameBoard extends JPanel implements Runnable {
 
         enemyGenerator.update();
 
-        for (int i = 0; i < playerLayer.getList().size(); i++) {
-            Sprite sprite = playerLayer.getList().get(i);
-            if (sprite.isActive()) {
-                sprite.update(updateTime);
-                repaint(sprite.repaintRect());
-            }
-        }
-
-        for (int i = 0; i < playerProjectiles.getList().size(); i++) {
-            PlayerProjectile sprite = playerProjectiles.getList().get(i);
-            if (sprite.isActive()) {
-                sprite.update(updateTime);
-                repaint(sprite.repaintRect());
-            }
-        }
-
-        for (int i = 0; i < playerSparks.getList().size(); i++) {
-            PlayerSpark sprite = playerSparks.getList().get(i);
-            if (sprite.isActive()) {
-                sprite.update(updateTime);
-                repaint(sprite.repaintRect());
-            }
-        }
-
-        for (int i = 0; i < enemies.getList().size(); i++) {
-            EnemyShip sprite = enemies.getList().get(i);
-            if (sprite.isActive()) {
-                sprite.update(updateTime);
-                repaint(sprite.repaintRect());
-            }
-        }
-
-        for (int i = 0; i < enemyProjectiles.getList().size(); i++) {
-            EnemyProjectile sprite = enemyProjectiles.getList().get(i);
-            if (sprite.isActive()) {
-                sprite.update(updateTime);
-                repaint(sprite.repaintRect());
-            }
-        }
-
-        for (int i = 0; i < enemySparks.getList().size(); i++) {
-            EnemySpark sprite = enemySparks.getList().get(i);
-            if (sprite.isActive()) {
-                sprite.update(updateTime);
-                repaint(sprite.repaintRect());
-            }
-        }
-
-        for (int i = 0; i < enemyExplosions.getList().size(); i++) {
-            EnemyExplosion sprite = enemyExplosions.getList().get(i);
-            if (sprite.isActive()) {
-                sprite.update(updateTime);
+        for (SpriteLayer layer : layers) {
+            for (int i = 0; i < layer.getList().size(); i++) {
+                Sprite sprite = layer.get(i);
+                if (sprite.isActive()) {
+                    sprite.update(updateTime);
+                } else {
+                    layer.remove(sprite);
+                }
                 repaint(sprite.repaintRect());
             }
         }
     }
-
-    private void cullAll() {
-        for (int i = 0; i < playerProjectiles.getList().size(); i++) {
-            PlayerProjectile sprite = playerProjectiles.getList().get(i);
-            if (!sprite.isActive()) {
-                playerProjectiles.remove(sprite);
-                repaint(sprite.repaintRect());
-            }
-        }
-
-        for (int i = 0; i < playerSparks.getList().size(); i++) {
-            PlayerSpark sprite = playerSparks.getList().get(i);
-            if (!sprite.isActive()) {
-                playerSparks.remove(sprite);
-                repaint(sprite.repaintRect());
-            }
-        }
-
-        for (int i = 0; i < enemies.getList().size(); i++) {
-            EnemyShip sprite = enemies.getList().get(i);
-            if (!sprite.isActive()) {
-                enemies.remove(sprite);
-                repaint(sprite.repaintRect());
-            }
-        }
-
-        for (int i = 0; i < enemyProjectiles.getList().size(); i++) {
-            EnemyProjectile sprite = enemyProjectiles.getList().get(i);
-            if (!sprite.isActive()) {
-                enemyProjectiles.remove(sprite);
-                repaint(sprite.repaintRect());
-            }
-        }
-
-        for (int i = 0; i < enemySparks.getList().size(); i++) {
-            EnemySpark sprite = enemySparks.getList().get(i);
-            if (!sprite.isActive()) {
-                enemySparks.remove(sprite);
-                repaint(sprite.repaintRect());
-            }
-        }
-
-        for (int i = 0; i < enemyExplosions.getList().size(); i++) {
-            EnemyExplosion sprite = enemyExplosions.getList().get(i);
-            if (!sprite.isActive()) {
-                enemyExplosions.remove(sprite);
-                repaint(sprite.repaintRect());
-            }
-        }
-    }
-
-    // @Override
-    // public void repaint() {
-    //     super.repaint();
-    // }
 
     public void repaint(SRect rect) {
         repaint(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
     }
-
-    // @Override
-    // public void repaint(int x, int y, int width, int height) {
-    //     super.repaint(x, y, width, height);
-    // }
 }
