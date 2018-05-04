@@ -4,7 +4,9 @@
     The Sprite representing the player character/avatar
  */
 
-package spaceranger;
+package spaceranger.sprite;
+
+import spaceranger.*;
 
 import java.awt.*;
 import javax.swing.*;
@@ -21,7 +23,7 @@ public class PlayerShip extends Sprite {
     private long missileFiredAt;
     private boolean missileOffset;
 
-    PlayerShip(GameBoard board) {
+    public PlayerShip(GameBoard board) {
         super(board, IMAGE_PATH);
         firing = false;
 

@@ -4,7 +4,9 @@
     This Sprite represents sparks produced by projectiles hitting EnemyShip
  */
 
-package spaceranger;
+package spaceranger.sprite;
+
+import spaceranger.*;
 
 import java.awt.*;
 import javax.swing.*;

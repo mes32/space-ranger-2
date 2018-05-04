@@ -7,7 +7,9 @@
 
  */
 
-package spaceranger;
+package spaceranger.sprite;
+
+import spaceranger.*;
 
 public class BigRoundMine extends EnemyShip {
 
@@ -15,7 +17,7 @@ public class BigRoundMine extends EnemyShip {
 
     private final int boardHeight;
 
-    BigRoundMine(GameBoard board, int x, int y) {
+    public BigRoundMine(GameBoard board, int x, int y) {
         super(board, IMAGE_PATH);
         boardHeight = board.getHeight();
         dy = 1;

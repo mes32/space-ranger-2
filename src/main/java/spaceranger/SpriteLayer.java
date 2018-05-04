@@ -6,6 +6,8 @@
 
 package spaceranger;
 
+import spaceranger.sprite.*;
+
 import java.util.*;
 
 public class SpriteLayer<T extends Sprite> implements Iterable<T> {

@@ -11,12 +11,12 @@ public class HitBox {
     private SRect container;
     private Collider[] components;
 
-    HitBox(SRect container) {
+    public HitBox(SRect container) {
         this.container = container;
         components = new Collider[0];
     }
 
-    HitBox(SRect container, Collider[] components) {
+    public HitBox(SRect container, Collider[] components) {
         // TODO: Possibly this should just take the components and determine the container from that
         this.container = container;
         this.components = components;

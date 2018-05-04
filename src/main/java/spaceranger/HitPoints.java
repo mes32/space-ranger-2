@@ -11,7 +11,7 @@ public class HitPoints {
     private int currentPoints;
     private int maximumPoints;
 
-    HitPoints(int maximum) {
+    public HitPoints(int maximum) {
         currentPoints = maximum;
         maximumPoints = maximum;
     }

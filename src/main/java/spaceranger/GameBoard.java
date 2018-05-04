@@ -6,6 +6,8 @@
 
 package spaceranger;
 
+import spaceranger.sprite.*;
+
 import java.awt.*;
 import java.util.*;
 import javax.swing.*;

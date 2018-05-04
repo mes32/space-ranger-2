@@ -4,7 +4,9 @@
     This Sprite represents explosions produced by EnemyShip being destroyed
  */
 
-package spaceranger;
+package spaceranger.sprite;
+
+import spaceranger.*;
 
 import java.awt.*;
 import javax.swing.*;

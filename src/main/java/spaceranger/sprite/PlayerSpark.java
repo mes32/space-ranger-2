@@ -4,7 +4,9 @@
     This Sprite representing sparks from projectiles hitting PlayerShip
  */
 
-package spaceranger;
+package spaceranger.sprite;
+
+import spaceranger.*;
 
 import java.awt.*;
 import javax.swing.*;

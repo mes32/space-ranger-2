@@ -14,7 +14,7 @@ public class SRect implements Collider {
     private final int width;
     private final int height;
 
-    SRect(double x0, double y0, double x1, double y1) {
+    public SRect(double x0, double y0, double x1, double y1) {
         topLeft = new SPoint(x0, y0);
         width = (int)(x1 - x0);
         height = (int)(y1 - y0);

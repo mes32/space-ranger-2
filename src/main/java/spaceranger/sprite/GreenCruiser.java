@@ -8,7 +8,9 @@
 
  */
 
-package spaceranger;
+package spaceranger.sprite;
+
+import spaceranger.*;
 
 public class GreenCruiser extends EnemyShip {
 
@@ -20,7 +22,7 @@ public class GreenCruiser extends EnemyShip {
     private int firingCycle;
     private long lastFiringTime;
 
-    GreenCruiser(GameBoard board) {
+    public GreenCruiser(GameBoard board) {
         super(board, IMAGE_PATH);
         boardHeight = board.getHeight();
         firingCycle = 0;

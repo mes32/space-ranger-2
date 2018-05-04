@@ -4,7 +4,9 @@
     This Sprite represents enemy characters
  */
 
-package spaceranger;
+package spaceranger.sprite;
+
+import spaceranger.*;
 
 import java.awt.*;
 import java.util.*;

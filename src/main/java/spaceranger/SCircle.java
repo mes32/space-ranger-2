@@ -11,7 +11,7 @@ public class SCircle implements Collider {
     private SPoint center;
     private double radius;
 
-    SCircle(double x, double y, double r) {
+    public SCircle(double x, double y, double r) {
         center = new SPoint(x, y);
         radius = r;
     }

@@ -4,7 +4,9 @@
     A game element that can be painted onto GameGUI
  */
 
-package spaceranger;
+package spaceranger.sprite;
+
+import spaceranger.*;
 
 import java.awt.*;
 import javax.swing.*;

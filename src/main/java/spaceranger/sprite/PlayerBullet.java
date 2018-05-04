@@ -4,7 +4,9 @@
     This Sprite represents bullets fired by PlayerShip
  */
 
-package spaceranger;
+package spaceranger.sprite;
+
+import spaceranger.*;
 
 import java.awt.*;
 import javax.swing.*;

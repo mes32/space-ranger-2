@@ -4,7 +4,9 @@
     This Sprite representing projectiles fired by EnemyShip
  */
 
-package spaceranger;
+package spaceranger.sprite;
+
+import spaceranger.*;
 
 import java.awt.*;
 import javax.swing.*;
