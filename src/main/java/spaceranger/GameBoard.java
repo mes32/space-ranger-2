@@ -1,7 +1,7 @@
 /*
     GameBoard.java
 
-    The main program panel associated with GameGUI
+    The main program panel inside the GameGUI window
  */
 
 package spaceranger;
@@ -146,33 +146,35 @@ public class GameBoard extends JPanel implements Runnable {
 
     private void drawSprites(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-        g2d.drawImage(playerShip.getImage(), playerShip.getX(), playerShip.getY(), this);
+        drawImage(playerShip, g2d);
         for (int i = 0; i < playerProjectiles.getList().size(); i++) {
             PlayerProjectile p = playerProjectiles.getList().get(i);
-            g2d.drawImage(p.getImage(), p.getX(), p.getY(), this);
+            drawImage(p, g2d);
         }
         for (int i = 0; i < playerSparks.getList().size(); i++) {
             PlayerSpark s = playerSparks.getList().get(i);
-            g2d.drawImage(s.getImage(), s.getX(), s.getY(), this);
+            drawImage(s, g2d);
         }
         for (int i = 0; i < enemies.getList().size(); i++) {
             EnemyShip e = enemies.getList().get(i);
-            g2d.drawImage(e.getImage(), e.getX(), e.getY(), this);
+            drawImage(e, g2d);
         }
         for (int i = 0; i < enemyProjectiles.getList().size(); i++) {
-            // TODO: Why does iterator not work here with the multi-threading
             EnemyProjectile p = enemyProjectiles.getList().get(i);
-            // TODO: Could overload the drawImage interface to simplify the following function call
-            g2d.drawImage(p.getImage(), p.getX(), p.getY(), this);
+            drawImage(p, g2d);
         }
         for (int i = 0; i < enemySparks.getList().size(); i++) {
             EnemySpark s = enemySparks.getList().get(i);
-            g2d.drawImage(s.getImage(), s.getX(), s.getY(), this);
+            drawImage(s, g2d);
         }
         for (int i = 0; i < enemyExplosions.getList().size(); i++) {
             EnemyExplosion e = enemyExplosions.getList().get(i);
-            g2d.drawImage(e.getImage(), e.getX(), e.getY(), this);
+            drawImage(e, g2d);
         }
+    }
+
+    private void drawImage(Sprite sprite, Graphics2D graphics) {
+        graphics.drawImage(sprite.getImage(), sprite.getX(), sprite.getY(), this);
     }
 
     private void drawGameover(Graphics g) {
