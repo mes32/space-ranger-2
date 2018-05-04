@@ -7,6 +7,8 @@
 
 package spaceranger.sprite.hitbox;
 
+import spaceranger.exceptions.*;
+
 public class SLineSegment {
 
     private SPoint p0;
@@ -16,7 +18,7 @@ public class SLineSegment {
     private double B;
     private double C;
 
-    SLineSegment(SPoint p0, SPoint p1) {
+    SLineSegment(SPoint p0, SPoint p1) throws InvalidLineSegmentException {
         this.p0 = p0;
         this.p1 = p1;
 
@@ -34,10 +36,7 @@ public class SLineSegment {
             B = 1.0;
             C = -1.0 * y0;
         } else {
-            // TODO: This should throw an exception
-            A = 0.0;
-            B = 0.0;
-            C = 0.0;
+            throw new InvalidLineSegmentException();
         }
     }
 

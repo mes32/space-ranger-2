@@ -6,6 +6,8 @@
 
 package spaceranger.sprite.hitbox;
 
+import spaceranger.exceptions.*;
+
 public class SRect implements Collider {
 
     private SPoint topLeft;
@@ -59,21 +61,25 @@ public class SRect implements Collider {
         double x1 = x0 + width;
         double y1 = y0 + height;
 
-        SPoint topRight = new SPoint(x1, y0);
-        SPoint bottomLeft = new SPoint(x0, y1);
-        SPoint bottomRight = new SPoint(x1, y1);
+        try {
+            SPoint topRight = new SPoint(x1, y0);
+            SPoint bottomLeft = new SPoint(x0, y1);
+            SPoint bottomRight = new SPoint(x1, y1);
 
-        SLineSegment top = new SLineSegment(topLeft, topRight);
-        SLineSegment left = new SLineSegment(topLeft, bottomLeft);
-        SLineSegment right = new SLineSegment(topRight, bottomRight);
-        SLineSegment bottom = new SLineSegment(bottomLeft, bottomRight);
+            SLineSegment top = new SLineSegment(topLeft, topRight);
+            SLineSegment left = new SLineSegment(topLeft, bottomLeft);
+            SLineSegment right = new SLineSegment(topRight, bottomRight);
+            SLineSegment bottom = new SLineSegment(bottomLeft, bottomRight);
 
-        if (bottom.within(circle) || left.within(circle) || right.within(circle) || top.within(circle)) {
-            return true;
-        } else if (circle.within(this)) {
-            return true;
+            if (top.within(circle) || left.within(circle) || right.within(circle) || bottom.within(circle) || circle.within(this)) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (InvalidLineSegmentException e) {
+            e.printStackTrace();
+            return false;
         }
-        return false;
     }
 
     public boolean collision(HitBox hitbox) {
