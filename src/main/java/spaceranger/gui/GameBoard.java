@@ -4,7 +4,7 @@
     The main program panel inside the GameGUI window
  */
 
-package spaceranger;
+package spaceranger.gui;
 
 import spaceranger.sprite.*;
 import spaceranger.sprite.hitbox.*;

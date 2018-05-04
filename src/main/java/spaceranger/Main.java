@@ -6,6 +6,8 @@
 
 package spaceranger;
 
+import spaceranger.gui.*;
+
 import java.awt.*;
 
 public class Main {

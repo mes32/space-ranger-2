@@ -4,7 +4,7 @@
     Simple extender
  */
 
-package spaceranger;
+package spaceranger.gui;
 
 import spaceranger.sprite.*;
 

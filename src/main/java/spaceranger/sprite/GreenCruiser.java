@@ -10,7 +10,7 @@
 
 package spaceranger.sprite;
 
-import spaceranger.*;
+import spaceranger.gui.*;
 
 public class GreenCruiser extends EnemyShip {
 

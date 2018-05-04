@@ -4,7 +4,7 @@
     The main program window
  */
 
-package spaceranger;
+package spaceranger.gui;
 
 import java.io.*;
 import javax.swing.*;
@@ -18,7 +18,7 @@ public class GameGUI {
     private JFrame frame;
     private GameBoard board;
 
-    GameGUI() {
+    public GameGUI() {
         frame = new JFrame();
         board = new GameBoard(this);
 

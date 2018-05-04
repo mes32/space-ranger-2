@@ -4,7 +4,7 @@
     This Sprite represents enemy characters
  */
 
-package spaceranger;
+package spaceranger.gui;
 
 import spaceranger.sprite.*;
 

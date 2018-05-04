@@ -6,7 +6,7 @@
 
 package spaceranger.sprite;
 
-import spaceranger.*;
+import spaceranger.gui.*;
 
 import java.awt.*;
 import java.util.*;
