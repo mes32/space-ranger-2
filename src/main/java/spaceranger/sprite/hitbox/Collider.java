@@ -4,7 +4,7 @@
     Interface for game objects that require hit detection
  */
 
-package spaceranger;
+package spaceranger.sprite.hitbox;
 
 public interface Collider {
 

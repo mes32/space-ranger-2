@@ -10,6 +10,7 @@
 package spaceranger.sprite;
 
 import spaceranger.*;
+import spaceranger.sprite.hitbox.*;
 
 public class BigRoundMine extends EnemyShip {
 

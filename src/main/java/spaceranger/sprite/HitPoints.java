@@ -4,7 +4,7 @@
     This represents the hit points for a game entity.
  */
 
-package spaceranger;
+package spaceranger.sprite;
 
 public class HitPoints {
 

@@ -4,7 +4,7 @@
     A geometric point on the GameBoard
  */
 
-package spaceranger;
+package spaceranger.sprite.hitbox;
 
 public class SPoint {
 

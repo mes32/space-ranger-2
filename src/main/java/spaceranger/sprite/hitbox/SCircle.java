@@ -4,7 +4,7 @@
     A geometric circle on the GameBoard
  */
 
-package spaceranger;
+package spaceranger.sprite.hitbox;
 
 public class SCircle implements Collider {
 

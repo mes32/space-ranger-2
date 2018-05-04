@@ -4,7 +4,7 @@
     The hitbox of a Sprite on the GameBoard
  */
 
-package spaceranger;
+package spaceranger.sprite.hitbox;
 
 public class HitBox {
 

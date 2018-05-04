@@ -4,18 +4,16 @@
     A layer of Sprite objects to be shown on the GameBoard
  */
 
-package spaceranger;
-
-import spaceranger.sprite.*;
+package spaceranger.sprite;
 
 import java.util.*;
 
 public class SpriteLayer<T extends Sprite> implements Iterable<T> {
 
-    private List<T> list = Collections.synchronizedList(new ArrayList<T>());
+    private List<T> list;
 
-    SpriteLayer() {
-
+    public SpriteLayer() {
+        list = Collections.synchronizedList(new ArrayList<T>());
     }
 
     public void insert(T sprite) {

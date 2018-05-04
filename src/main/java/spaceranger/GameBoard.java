@@ -7,6 +7,7 @@
 package spaceranger;
 
 import spaceranger.sprite.*;
+import spaceranger.sprite.hitbox.*;
 
 import java.awt.*;
 import java.util.*;

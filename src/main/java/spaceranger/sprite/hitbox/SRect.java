@@ -4,7 +4,7 @@
     A geometric rectangle on the GameBoard
  */
 
-package spaceranger;
+package spaceranger.sprite.hitbox;
 
 public class SRect implements Collider {
 

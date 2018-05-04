@@ -5,7 +5,7 @@
     perpendicular to the GameBoard axes.
  */
 
-package spaceranger;
+package spaceranger.sprite.hitbox;
 
 public class SLineSegment {
 
