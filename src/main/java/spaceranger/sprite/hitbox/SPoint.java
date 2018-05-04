@@ -36,5 +36,9 @@ public class SPoint {
     public void translate(double dx, double dy) {
         x += dx;
         y += dy;
-    } 
+    }
+
+    public String toString() {
+        return "(" + x + ", " + y + ")";
+    }
 }

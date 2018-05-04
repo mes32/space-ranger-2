@@ -41,14 +41,18 @@ public class SLineSegment {
     }
 
     public boolean within(SCircle circle) {
-        SPoint c = circle.getCenter();
-        double r = circle.getRadius();
-        if (distance(c) <= r) {
-            // TODO: Check the perpendicular point in the next if()
-            // The case where the points span the cicle
-            if (p0.distance(c) <= r || p1.distance(c) <= r  ) {
+        SPoint center = circle.getCenter();
+        double radius = circle.getRadius();
+        if (this.distance(center) <= radius) {
+            if (p0.distance(center) <= radius || p1.distance(center) <= radius) {
                 return true;
             }
+
+            // TODO: Should be able to use this formula instead
+            // SPoint proximal = this.closestPoint(center);
+            // if (pointOnSegment(proximal)) {
+            //     return true;
+            // }
         }
         return false;
     }
@@ -57,5 +61,28 @@ public class SLineSegment {
         int x = p.getX();
         int y = p.getY();
         return Math.abs(A*x + B*y + C) / Math.sqrt(A*A + B*B);
+    }
+
+    private SPoint closestPoint(SPoint p) {
+        int x_p = p.getX();
+        int y_p = p.getY();
+        double denominator = Math.pow(A, 2) + Math.pow(B, 2);
+
+        double x = ((B * (B*x_p - A*y_p)) - (A*C)) / denominator;
+        double y = ((A * (A*y_p - B*x_p)) - (B*C)) / denominator;
+
+        return new SPoint(x, y);
+    }
+
+    private boolean pointOnSegment(SPoint point) {
+        double epsilon = 2.0;
+        double total = p0.distance(p1);
+        double d0 = point.distance(p0);
+        double d1 = point.distance(p1);
+
+        if (Math.abs(total - (d0 + d1)) < epsilon) {
+            return true;
+        }
+        return false;
     }
 }

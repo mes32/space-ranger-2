@@ -1,7 +1,7 @@
 /*
     InvalidLineSegmentException.java
 
-    Exception thrown if a SLineSegment is degenerate (i.e. the end points are the same)
+    Exception thrown if a SLineSegment is not perpendicular to the GameBoard
  */
 
 package spaceranger.exceptions;
