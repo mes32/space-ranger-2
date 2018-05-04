@@ -4,12 +4,12 @@
 
 ## About
 
-This is a vertical scrolling shooter game.
+This is a vertical scrolling shooter game with a space theme. You can find an earlier interation of this game here [space-ranger](https://github.com/mes32/space-ranger), a mechanically similar game implemented in Python.
 
 ## Requirements
 
-- [Gradle 4.5.1](https://gradle.org)
-- [Java 9](https://www.oracle.com) - Java SE 9 Development Kit (JDK)
+- [Gradle](https://gradle.org) - version 4.5.1
+- [Java](https://www.oracle.com) - Java SE 9 Development Kit (JDK)
 
 ## Getting started
 ```bash
