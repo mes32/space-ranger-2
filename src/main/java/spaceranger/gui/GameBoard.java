@@ -190,9 +190,7 @@ public class GameBoard extends JPanel implements Runnable {
     private void updateAll(long updateTime) {
         if (!playerShip.isActive()) {
             ingame = false;
-            return;
         }
-
         enemyGenerator.update();
 
         for (SpriteLayer layer : layers) {
