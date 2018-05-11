@@ -15,8 +15,8 @@ import javax.swing.*;
 
 public class GameBoard extends JPanel implements Runnable {
 
-    private static final int DELAY = 10;
-    private static final int MOVE_PIXELS = GameplayKeyAdapter.getMovePixels();
+    private static final int REFRESH_PERIOD_MS = 10;
+    private static final int MINIMUM_SLEEP_MS = 2;
 
     private Thread animator;
     private GameGUI gui;
@@ -36,8 +36,8 @@ public class GameBoard extends JPanel implements Runnable {
     private SpriteLayer<EnemyExplosion> enemyExplosions = new SpriteLayer<EnemyExplosion>();
 
     private SpriteLayer[] layers = {
-        playerLayer,
         playerProjectiles,
+        playerLayer,
         playerSparks,
         enemies,
         enemyProjectiles,
@@ -130,9 +130,9 @@ public class GameBoard extends JPanel implements Runnable {
             updateAll(updateTime);
 
             diffTime = System.currentTimeMillis() - beforeTime;
-            sleepTime = DELAY - diffTime;
+            sleepTime = REFRESH_PERIOD_MS - diffTime;
             if (sleepTime < 0) {
-                sleepTime = 2;
+                sleepTime = MINIMUM_SLEEP_MS;
             }
 
             try {
@@ -166,6 +166,9 @@ public class GameBoard extends JPanel implements Runnable {
                 Sprite sprite = layer.get(i);
                 drawImage(sprite, g2d);
             }
+            // for (Sprite sprite : layer) {
+            //     drawImage(sprite, g2d);
+            // }
         }
     }
 

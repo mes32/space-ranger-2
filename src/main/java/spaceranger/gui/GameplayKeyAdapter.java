@@ -33,10 +33,6 @@ public class GameplayKeyAdapter extends KeyAdapter {
         this.player = player;
     }
 
-    public static int getMovePixels() {
-        return MOVE_PIXELS;
-    }
-
     @Override
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
